@@ -1,0 +1,21 @@
+schema_version: '1'
+mode: DEMO
+external_requests_enabled: false
+live_enabled: false
+providers:
+  demo:
+    implemented: true
+    verified_at: '2026-10-27'
+    intervals: [1d]
+    currency: EUR
+    source: fictional-eur-daily-v1
+    broker_capable: false
+  openai:
+    implemented: false
+    verified_at: null
+  alpaca:
+    implemented: false
+    verified_at: null
+  trading212_demo:
+    implemented: false
+    verified_at: null

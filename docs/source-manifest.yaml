@@ -1,0 +1,506 @@
+review_date: '2026-10-27'
+method: Installed release metadata and packaged license inspection. No third-party
+  repository source copied.
+dependencies:
+- package: fastapi
+  version: 0.162.0
+  repository: https://github.com/fastapi/fastapi
+  tag_or_commit: PyPI release 0.162.0; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/fastapi-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: uvicorn
+  version: 0.54.0
+  repository: https://github.com/encode/uvicorn
+  tag_or_commit: PyPI release 0.54.0; no repository code copied
+  license: BSD-3-Clause
+  license_files:
+  - docs/licenses/uvicorn-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: sqlalchemy
+  version: 2.1.6
+  repository: https://github.com/sqlalchemy/sqlalchemy
+  tag_or_commit: PyPI release 2.1.6; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/sqlalchemy-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: alembic
+  version: 1.20.1
+  repository: https://github.com/sqlalchemy/alembic
+  tag_or_commit: PyPI release 1.20.1; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/alembic-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: pydantic
+  version: 2.14.1
+  repository: https://github.com/pydantic/pydantic
+  tag_or_commit: PyPI release 2.14.1; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/pydantic-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: pydantic-settings
+  version: 2.16.1
+  repository: https://github.com/pydantic/pydantic-settings
+  tag_or_commit: PyPI release 2.16.1; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/pydantic-settings-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: numpy
+  version: 2.5.4
+  repository: https://github.com/numpy/numpy
+  tag_or_commit: PyPI release 2.5.4; no repository code copied
+  license: BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0
+  license_files:
+  - docs/licenses/numpy-0.license
+  - docs/licenses/numpy-1.license
+  - docs/licenses/numpy-2.license
+  - docs/licenses/numpy-3.license
+  - docs/licenses/numpy-4.license
+  - docs/licenses/numpy-5.license
+  - docs/licenses/numpy-6.license
+  - docs/licenses/numpy-7.license
+  - docs/licenses/numpy-8.license
+  - docs/licenses/numpy-9.license
+  - docs/licenses/numpy-10.license
+  - docs/licenses/numpy-11.license
+  - docs/licenses/numpy-12.license
+  - docs/licenses/numpy-13.license
+  - docs/licenses/numpy-14.license
+  - docs/licenses/numpy-15.license
+  - docs/licenses/numpy-16.license
+  - docs/licenses/numpy-17.license
+  - docs/licenses/numpy-18.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: pandas
+  version: 3.1.0
+  repository: https://github.com/pandas-dev/pandas
+  tag_or_commit: PyPI release 3.1.0; no repository code copied
+  license: BSD-3-Clause
+  license_files:
+  - docs/licenses/pandas-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: numba
+  version: 0.68.0
+  repository: https://github.com/numba/numba
+  tag_or_commit: PyPI release 0.68.0; no repository code copied
+  license: BSD
+  license_files:
+  - docs/licenses/numba-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: vectorbt
+  version: 1.2.0
+  repository: https://github.com/polakowo/vectorbt
+  tag_or_commit: PyPI release 1.2.0; no repository code copied
+  license: See packaged license file; review required
+  license_files:
+  - docs/licenses/vectorbt-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: langgraph
+  version: 1.2.18
+  repository: https://github.com/langchain-ai/langgraph
+  tag_or_commit: PyPI release 1.2.18; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/langgraph-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: langchain-openai
+  version: 1.7.3
+  repository: https://github.com/langchain-ai/langchain
+  tag_or_commit: PyPI release 1.7.3; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/langchain-openai-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: chromadb
+  version: 1.5.9
+  repository: https://github.com/chroma-core/chroma
+  tag_or_commit: PyPI release 1.5.9; no repository code copied
+  license: See packaged license file; review required
+  license_files:
+  - docs/licenses/chromadb-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: lppls
+  version: 0.6.24
+  repository: https://github.com/Boulder-Investment-Technologies/lppls
+  tag_or_commit: PyPI release 0.6.24; no repository code copied
+  license: See packaged license file; review required
+  license_files: []
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: celery
+  version: 5.6.3
+  repository: https://github.com/celery/celery
+  tag_or_commit: PyPI release 5.6.3; no repository code copied
+  license: BSD-3-Clause
+  license_files:
+  - docs/licenses/celery-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: redis
+  version: 8.1.0
+  repository: https://github.com/redis/redis-py
+  tag_or_commit: PyPI release 8.1.0; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/redis-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: psycopg
+  version: 3.3.6
+  repository: https://github.com/psycopg/psycopg
+  tag_or_commit: PyPI release 3.3.6; no repository code copied
+  license: LGPL-3.0-only
+  license_files:
+  - docs/licenses/psycopg-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: httpx
+  version: 0.28.1
+  repository: https://github.com/encode/httpx
+  tag_or_commit: PyPI release 0.28.1; no repository code copied
+  license: BSD-3-Clause
+  license_files:
+  - docs/licenses/httpx-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: feedparser
+  version: 6.0.14
+  repository: https://github.com/kurtmckee/feedparser
+  tag_or_commit: PyPI release 6.0.14; no repository code copied
+  license: BSD-2-Clause
+  license_files:
+  - docs/licenses/feedparser-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: pytest
+  version: 9.1.1
+  repository: https://github.com/pytest-dev/pytest
+  tag_or_commit: PyPI release 9.1.1; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/pytest-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: pytest-cov
+  version: 7.1.0
+  repository: https://github.com/pytest-dev/pytest-cov
+  tag_or_commit: PyPI release 7.1.0; no repository code copied
+  license: MIT
+  license_files:
+  - docs/licenses/pytest-cov-0.license
+  used_paths:
+  - published Python distribution
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@radix-ui/react-dialog'
+  version: 1.3.1
+  repository: git+https://github.com/radix-ui/primitives.git
+  tag_or_commit: npm release 1.3.1
+  license: MIT
+  license_files:
+  - docs/licenses/radix-ui-react-dialog-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@tanstack/react-query'
+  version: 5.105.0
+  repository: git+https://github.com/TanStack/query.git
+  tag_or_commit: npm release 5.105.0
+  license: MIT
+  license_files:
+  - docs/licenses/tanstack-react-query-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@tanstack/react-router'
+  version: 1.170.46
+  repository: git+https://github.com/TanStack/router.git
+  tag_or_commit: npm release 1.170.46
+  license: MIT
+  license_files:
+  - docs/licenses/tanstack-react-router-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: clsx
+  version: 2.1.1
+  repository: lukeed/clsx
+  tag_or_commit: npm release 2.1.1
+  license: MIT
+  license_files:
+  - docs/licenses/clsx-license.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: lightweight-charts
+  version: 5.2.1
+  repository: git+https://github.com/tradingview/lightweight-charts.git
+  tag_or_commit: npm release 5.2.1
+  license: Apache-2.0
+  license_files:
+  - docs/licenses/lightweight-charts-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: lucide-react
+  version: 0.468.0
+  repository: https://github.com/lucide-icons/lucide.git
+  tag_or_commit: npm release 0.468.0
+  license: ISC
+  license_files:
+  - docs/licenses/lucide-react-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: react
+  version: 19.3.1
+  repository: https://github.com/react/react.git
+  tag_or_commit: npm release 19.3.1
+  license: MIT
+  license_files:
+  - docs/licenses/react-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: react-dom
+  version: 19.3.1
+  repository: https://github.com/react/react.git
+  tag_or_commit: npm release 19.3.1
+  license: MIT
+  license_files:
+  - docs/licenses/react-dom-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: react-resizable-panels
+  version: 2.1.9
+  repository: git+https://github.com/bvaughn/react-resizable-panels.git
+  tag_or_commit: npm release 2.1.9
+  license: MIT
+  license_files:
+  - docs/licenses/react-resizable-panels-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: tailwind-merge
+  version: 3.7.0
+  repository: https://github.com/dcastil/tailwind-merge.git
+  tag_or_commit: npm release 3.7.0
+  license: MIT
+  license_files:
+  - docs/licenses/tailwind-merge-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@playwright/test'
+  version: 1.64.1
+  repository: git+https://github.com/microsoft/playwright.git
+  tag_or_commit: npm release 1.64.1
+  license: Apache-2.0
+  license_files:
+  - docs/licenses/playwright-test-LICENSE.license
+  - docs/licenses/playwright-test-NOTICE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@tailwindcss/vite'
+  version: 4.3.3
+  repository: https://github.com/tailwindlabs/tailwindcss.git
+  tag_or_commit: npm release 4.3.3
+  license: MIT
+  license_files:
+  - docs/licenses/tailwindcss-vite-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@testing-library/jest-dom'
+  version: 6.9.1
+  repository: https://github.com/testing-library/jest-dom
+  tag_or_commit: npm release 6.9.1
+  license: MIT
+  license_files:
+  - docs/licenses/testing-library-jest-dom-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@testing-library/react'
+  version: 16.3.3
+  repository: https://github.com/testing-library/react-testing-library
+  tag_or_commit: npm release 16.3.3
+  license: MIT
+  license_files:
+  - docs/licenses/testing-library-react-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@types/react'
+  version: 19.3.0
+  repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  tag_or_commit: npm release 19.3.0
+  license: MIT
+  license_files:
+  - docs/licenses/types-react-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@types/react-dom'
+  version: 19.3.0
+  repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  tag_or_commit: npm release 19.3.0
+  license: MIT
+  license_files:
+  - docs/licenses/types-react-dom-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: '@vitejs/plugin-react'
+  version: 5.2.0
+  repository: git+https://github.com/vitejs/vite-plugin-react.git
+  tag_or_commit: npm release 5.2.0
+  license: MIT
+  license_files:
+  - docs/licenses/vitejs-plugin-react-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: jsdom
+  version: 27.4.0
+  repository: git+https://github.com/jsdom/jsdom.git
+  tag_or_commit: npm release 27.4.0
+  license: MIT
+  license_files:
+  - docs/licenses/jsdom-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: openapi-typescript
+  version: 7.13.0
+  repository: https://github.com/openapi-ts/openapi-typescript
+  tag_or_commit: npm release 7.13.0
+  license: MIT
+  license_files:
+  - docs/licenses/openapi-typescript-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: tailwindcss
+  version: 4.3.3
+  repository: https://github.com/tailwindlabs/tailwindcss.git
+  tag_or_commit: npm release 4.3.3
+  license: MIT
+  license_files:
+  - docs/licenses/tailwindcss-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: typescript
+  version: 5.9.3
+  repository: https://github.com/microsoft/TypeScript.git
+  tag_or_commit: npm release 5.9.3
+  license: Apache-2.0
+  license_files:
+  - docs/licenses/typescript-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: vite
+  version: 7.3.7
+  repository: git+https://github.com/vitejs/vite.git
+  tag_or_commit: npm release 7.3.7
+  license: MIT
+  license_files:
+  - docs/licenses/vite-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'
+- package: vitest
+  version: 3.2.7
+  repository: git+https://github.com/vitest-dev/vitest.git
+  tag_or_commit: npm release 3.2.7
+  license: MIT
+  license_files:
+  - docs/licenses/vitest-LICENSE.license
+  used_paths:
+  - published npm package
+  use: dependency
+  checked_at: '2026-10-27'

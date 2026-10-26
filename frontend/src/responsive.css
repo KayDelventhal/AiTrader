@@ -1,0 +1,9 @@
+/* Prevent intrinsic table widths from stretching grid tracks on mobile. */
+.portfolio-layout > div,
+.strategy-results,
+.event-list { min-width: 0; }
+@media (max-width: 1000px) {
+  .portfolio-layout,
+  .strategy-layout,
+  .research-layout { grid-template-columns: minmax(0, 1fr); }
+}

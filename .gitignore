@@ -1,0 +1,107 @@
+# Project-specific files
+data/
+temp/
+_archive/
+file_*/
+file*.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+/lib/
+/lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.env.*
+!.env.example
+.venv
+.tools/
+.pnpm-store/
+*.tsbuildinfo
+.runtime/
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+artifacts/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+trading_data.db
+
+# Log and data files
+*.log
+*.txt
+!requirements.txt
+!requirements-notebook.txt
+!README.md
+trade_log.txt
+log_*.txt
+human_guidance_*.json
+panic_button.txt
+memory/
+logs/
+*.db-wal
+*.db-shm
+!tests/test_*.py
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE settings
+.idea/
+.vscode/

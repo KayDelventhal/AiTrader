@@ -1,0 +1,58 @@
+# Prepared deployment path. Docker/PostgreSQL execution is not locally verified.
+services:
+  api:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      APP_MODE: DEMO
+      DATABASE_URL: postgresql+psycopg://aitrader:local-demo-database@postgres:5432/aitrader
+      EXTERNAL_REQUESTS_ENABLED: "false"
+      LIVE_ENABLED: "false"
+      LANGSMITH_TRACING: "false"
+      ANONYMIZED_TELEMETRY: "false"
+      MPLCONFIGDIR: /app/.runtime/matplotlib
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - app_runtime:/app/.runtime
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+  postgres:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_DB: aitrader
+      POSTGRES_USER: aitrader
+      POSTGRES_PASSWORD: local-demo-database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aitrader -d aitrader"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [internal]
+  redis:
+    image: redis:8.2.1-alpine
+    profiles: [infrastructure]
+    networks: [internal]
+  chroma:
+    image: chromadb/chroma:1.5.9
+    profiles: [infrastructure]
+    environment:
+      ANONYMIZED_TELEMETRY: "false"
+    volumes:
+      - chroma_data:/data
+    networks: [internal]
+networks:
+  internal:
+    internal: true
+volumes:
+  postgres_data:
+  app_runtime:
+  chroma_data:
