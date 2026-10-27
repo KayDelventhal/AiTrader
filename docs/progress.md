@@ -1,5 +1,16 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-03-C86 (requirements update)
+
+- Recorded the user's confirmed choices: US and European equities from the first real-data version; days-to-weeks starting horizon, changeable for future work; initial EUR 20 monthly operating budget.
+- Added `product-decisions.md` with cost categories, workspace-wide reservations, recurring commitments, billing/FX provenance, explicit budget increases, historical configuration preservation and separate live/paper/backtest performance.
+- Updated AGENTS.md, instrument configuration, implementation status, TODO and next steps to preserve these decisions. European coverage is required rather than deferred behind US coverage.
+- Cost tracking and budget enforcement are specified, not implemented. No subscriptions, provider requests, trades, app settings or secrets were changed.
+- Validation: documentation consistency and local links checked; `git diff --check` passed. Application tests were not rerun because only Markdown requirements changed. Runtime acceptance cases are listed for the implementation stage.
+
+Feedback: **FB-2026-10-27-03-C86**\
+Commit-Vorschlag: `docs: define US and European scope and operating cost controls`
+
 ## 2026-10-27 — FB-2026-10-27-02-C86
 
 - User confirmed that the previous visible milestone appears to work; feedback refers to FB-2026-10-27-01-C86.

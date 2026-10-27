@@ -23,7 +23,8 @@ Locally running at http://127.0.0.1:8000. The full integration prompt is **not c
 | Docker/PostgreSQL | Deferred, externally unverified | Optional Compose supplied; no Docker installation required |
 | Redis/Celery/Chroma integration | Deferred service work | Dependency installed/probed does not mean integrated |
 | LPPLS diagnostics | Pending | Construction probe only |
-| Mandatory external adapters | Pending | Alpaca read-only observation and instrument configuration are next; credentials present, authentication/entitlements unverified. Other adapters remain pending |
+| Mandatory external adapters | Pending | US and European read-only observations are next; Alpaca credentials present, authentication/entitlements and European provider coverage unverified. Other adapters remain pending |
+| Confirmed product configuration | Specified, runtime pending | US and European equities from first real-data version; changeable days-to-weeks horizon; EUR 20 monthly operating ceiling and cost ledger requirements in `product-decisions.md` |
 | Live execution | Disabled | No order submission path; startup rejects LIVE |
 | LEAN / IBKR / SMARTBROKER+ / Nautilus | Optional boundary | No unverified engine/broker represented as functional |
 

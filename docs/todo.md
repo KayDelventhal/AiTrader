@@ -31,7 +31,12 @@
 - [ ] Chroma retrieval and PostgreSQL checkpoints.
 - [ ] Complete scheduler, budgets, notification outbox, and recovery.
 - [ ] Implement and contract-test mandatory external adapters.
-- [ ] Next: Alpaca historical/current observations, explicit feed/freshness and real symbol selection.
+- [ ] Next: US and European equity observations, explicit feed/freshness and listing selection; verify provider coverage and costs for both markets.
+- [x] Record confirmed market scope, configurable days-to-weeks horizon and EUR 20 monthly operating budget.
+- [ ] Persist configurable horizons without rewriting saved strategies, runs or assessments.
+- [ ] Implement shared monthly cost ledger, atomic reservations, billing reconciliation and explicit provider activation.
+- [ ] Include AI, search/news, market data, recurring commitments and FX estimates in the budget; never increase it automatically.
+- [ ] Show operating expenses alongside realized/unrealized trading performance, with separate live/paper/backtest views and no double counting.
 - [ ] Separate observation lists from future trading eligibility and real USD accounting.
 - [ ] Full chronological evaluation, cost sensitivity, walk-forward, and exports.
 - [ ] Complete acceptance matrix, backup/restore, security, and operations hardening.
