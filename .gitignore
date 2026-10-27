@@ -1,5 +1,8 @@
 # Project-specific files
-data/
+data/*
+!data/research/
+data/research/*
+!data/research/starter-backfill.json
 temp/
 _archive/
 file_*/

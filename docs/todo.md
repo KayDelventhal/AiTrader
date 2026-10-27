@@ -9,7 +9,7 @@
 - [ ] Deferred: verify optional Docker/Linux/PostgreSQL deployment when requested.
 
 ## P1 — Visible local workflow
-- [x] Six English navigation areas with persistent backend data.
+- [x] English workbench navigation with persistent backend data and an in-app Help route.
 - [x] Watchlist, candlestick chart, indicators, provenance, and server-filtered chart replay.
 - [x] Evidence-linked fictional events and deterministic research graph.
 - [x] Immutable strategy versions and actual vectorbt backtests.
@@ -21,18 +21,27 @@
 - [x] Capture and hash job inputs at submission; export owner-only snapshots.
 - [x] Show saved backtest/research runs and distinguish legacy runs.
 - [x] Isolate browser acceptance from the interactive database and configuration.
-- [ ] Complete broader source/listing/revision/dataset contracts and inferred route/request client bindings.
+- [x] Implement source-document identities and immutable revisions, source/domain snapshots, manual backfills and publication/observation date contracts.
+- [ ] Complete listing/dataset contracts, synthesized event revisions and inferred route/request client bindings.
 - [ ] Add job-history pagination beyond the latest 50 jobs.
 - [ ] Add full market/limit/stop order lifecycle and simulation-run ledger replay.
 
 ## P2–P5 — Full integration brief
+- [x] Add owner-managed research domains with Nvidia, Amazon, Macroeconomics and Geopolitics defaults; keep source assignments distinct from trading eligibility.
+- [x] Add a reviewed public-feed catalog, explicit process/workspace/source/domain gates, configurable intervals and manual collection.
+- [x] Preserve source excerpts, publisher links/raw date fields and immutable revisions; report duplicates, changed content and failed retrieval honestly.
+- [x] Add manual historical imports with exact/date-only/unknown publication precision, idempotency and actual first-observation times.
+- [x] Provide source-library SQL filtering/pagination, revision detail/export and a knowledge cutoff that excludes later revisions.
+- [x] Add an HTML user guide and in-app Help covering gathering configuration, history, costs, controls and current limitations.
+- [ ] Add archive-provider connectors, semantic source grouping and evidence-to-event synthesis with correction/retraction propagation.
 - [ ] Add OpenAI model profiles with capability-aware temperature/reasoning controls, future provider boundary, immutable run settings and per-run limits.
 - [ ] Route domain triage to cheaper models and substantive analyst/critic exchanges to user-selected premium models; cap rounds and preserve source access without silent budget-driven model downgrades.
 - [ ] Deliver manual real-source analysis plus critical review, persisted evidence/assessment history and budget-linked usage before scheduled LLM research.
 - [ ] Complete chart drawing primitives and context validation.
 - [ ] LPPLS diagnostics and bounded background jobs.
 - [ ] Chroma retrieval and PostgreSQL checkpoints.
-- [ ] Complete scheduler, paid-provider budget integration, notification outbox, and recovery.
+- [x] Implement a bounded public-feed scheduler, missed-interval coalescing, queued retry and interrupted collection recovery in the local process.
+- [ ] Complete scheduled LLM research, paid-provider budget integration, notification outbox and broader worker recovery.
 - [ ] Implement and contract-test mandatory external adapters.
 - [ ] Next: US and European equity observations, explicit feed/freshness and listing selection; verify provider coverage and costs for both markets.
 - [x] Record confirmed market scope, configurable days-to-weeks horizon and EUR 20 monthly operating budget.
@@ -49,7 +58,7 @@
 - [ ] Complete acceptance matrix, backup/restore, security, and operations hardening.
 
 ## Handoff
-- [x] Deliver configuration and local operating-cost controls in FB-2026-10-27-04-C86; keep real feeds and advanced chart/research integration pending.
+- [x] Deliver public-source gathering, persistent source history and local help in FB-2026-10-27-06-C86; keep real equity prices, paid LLMs and advanced chart/research integration pending.
 - [x] Run backend, frontend, browser, build, and persistence checks.
 - [x] Serve the working local application; browser acceptance and screenshot artifacts available.
 - [x] Record exact verification, limitations, bookmark, and commit suggestion.

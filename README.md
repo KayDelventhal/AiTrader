@@ -2,7 +2,7 @@
 
 A private research workbench with a working local demo: charts, evidence, strategy versions, real vectorbt backtests, and explicitly approved fictional fills.
 
-**Current delivery:** local Python/SQLite workbench with saved run history, frozen input exports, configurable workspace defaults and operating-cost accounting. The full integration brief remains unfinished. English interface and documentation. No real feeds, paid model requests, or broker orders are enabled. Docker is not required.
+**Current delivery:** local Python/SQLite workbench with saved runs, operating-cost controls, public-source gathering, historical source revisions and detailed in-app/offline HTML help. Market prices and trading are still fictional. Public news feeds are a separate owner-configured capability; paid models and broker orders remain inactive. The full integration brief remains unfinished. Docker is not required.
 
 ## Open the app
 
@@ -45,18 +45,35 @@ pnpm --dir frontend install --frozen-lockfile
 
 `start` runs Alembic migrations and the idempotent seed. `.env` is server-only. An OpenAI key is neither required nor used in this milestone. The launcher does not overwrite `.env` or `.python-version`.
 
-## Explore the six areas
+## Explore the application
 
 1. **Overview:** account cash, watchlist, frozen market chart, event cards, and strategy entry point.
 2. **Terminal:** switch instruments, toggle watchlist entries, select SMA/EMA/Bollinger/RSI/MACD, zoom/pan, replay to a server-enforced cutoff, save/undo horizontal price levels, request evidence review.
 3. **Strategy lab:** edit a crossover hypothesis, save immutable versions, run the saved version with vectorbt, inspect equity/trades/cost sensitivity, export JSON. Saving or backtesting does not activate trading.
-4. **Research & events:** inspect three fictional domains, source origins/copies, causal steps, counterarguments, and next checks. Execute a deterministic LangGraph review.
+4. **Research & events:** configure editable domains and public sources under Gathering setup; inspect collected excerpts and revisions under Source library; import historical sources. Demo research retains the separate fictional event viewer and deterministic LangGraph review.
 5. **Portfolio & approvals:** create a proposal, inspect price/fees/fingerprint, explicitly approve or reject, inspect exact cash and positions, use the kill switch, export the journal.
 6. **Settings & status:** configure US/European observation scope, the default holding horizon and shared monthly operating limit; record expenses and recurring commitments; inspect costs, history, budget status and integration capabilities.
+7. **Help & guide:** read detailed instructions for tabs, buttons, data and background processes; open or download the self-contained [HTML user guide](docs/user-guide.html).
 
 Strategy lab and Research now offer **Saved runs** and **Export inputs**. New runs capture inputs at submission and validate their SHA-256 digest before computation. Older runs are labelled **Legacy run** and cannot export inputs that were never captured. The history shows up to the latest 50 jobs for the signed-in user, shared across both job types.
 
-To choose what to observe now, use the Terminal watchlist stars. To choose what to test, use Strategy lab's Instrument field. Both currently use fictional instruments. Real Alpaca observation lists for symbols such as AMZN and NVDA are the next milestone; see [market data and instrument configuration](docs/market-data-and-instruments.md).
+To choose what to observe now, use the Terminal watchlist stars. To choose what to test, use Strategy lab's Instrument field. Both currently use fictional instruments. Nvidia/Amazon research domains do not create real price instruments or trading permissions. Real observation lists and US/European price feeds remain pending; see [market data and instrument configuration](docs/market-data-and-instruments.md).
+
+## Begin gathering research
+
+Open **Research & events > Gathering setup**, or **Settings & status > Configure gathering**. The initial domains are Nvidia, Amazon, Macroeconomics and Geopolitics. Add/edit domains, assign public catalog sources, set a collection interval and enable collection. New installations are inactive until configured. Turning off every assigned domain pauses that source without deleting history.
+
+In the current local workspace, FB06 configured five hourly feeds (NVIDIA, AWS, Federal Reserve, ECB and EU Council). The first successful collection stored 90 feed records, alongside four curated historical examples. Open the [source library](http://127.0.0.1:8000/research?view=library) to inspect them. Collection continues only while the local app is running; this is source gathering, with LLM interpretation still pending.
+
+Use **Source library** to filter by domain, source, publication date or what the app knew at a chosen cutoff. **Import historical source** supports unknown, date-only or exact publication times, retains original source text and appends corrections. Old publication dates never backdate the app's first-seen time. The library is real source material; it is not yet LLM analysis or verified event synthesis.
+
+The catalog includes NVIDIA, AWS, Federal Reserve, ECB, EU Council and EIA feeds. Collection fetches public feed excerpts without API keys or model calls; linked full articles are not fetched. The local scheduler works only while the server/computer is running. `PUBLIC_FEED_REQUESTS_ALLOWED=false` blocks public network requests; tests force this setting off. Existing paid-provider placeholder flags do not activate paid services. See [gathering and backfill details](docs/gathering.md).
+
+The curated starter file includes four older official-source summaries with preserved date precision. Importing it is idempotent:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\import_research.py data\research\starter-backfill.json
+```
 
 ## Settings and operating costs
 
@@ -80,7 +97,7 @@ The performance panel compares the current user's fictional realized P&L with al
 
 Browser acceptance uses installed Microsoft Edge and starts its own temporary loopback server with a fresh SQLite database. It bypasses the user's `.env`, checks the server's unique test identity, and stops its own process afterward. Test records and logs remain in ignored `.runtime/e2e/<run-id>/`; the interactive workspace is not used. Backend tests also use isolated databases. The test command checks generated API types for drift. See [validation report](docs/validation-report.md) for exact results and remaining gaps. Screenshots are in ignored `artifacts/`.
 
-Frontend development: `pnpm --dir frontend dev` proxies `/api` to the backend. The production preview serves the built assets and API from the same origin. For backend reload, first stop the managed server, then run `.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload`.
+Frontend development: `pnpm --dir frontend dev` proxies `/api` and the HTML guide to the backend. The production preview serves the built assets and API from the same origin. For backend reload, first stop the managed server, then run `.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload`.
 
 ## Backup and restore
 

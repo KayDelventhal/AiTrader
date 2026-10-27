@@ -25,6 +25,9 @@ from app.jobs.snapshots import freeze_input, verified_snapshot
 from app.workspace.routes import register_routes as register_workspace_routes
 from app.workspace.service import settings_snapshot
 from app.reporting.cost_impact import PerformanceCostView, performance_cost_impact, RunCostView, run_costs
+from app.gathering.runner import GatheringRunner
+from app.gathering.routes import register_routes as register_gathering_routes
+from app.gathering.service import get_config as gathering_config
 
 
 def record(obj):
@@ -43,7 +46,10 @@ def create_app(db_engine=None):
             seed(db)
         app.state.runner = LocalJobRunner(sessions)
         app.state.runner.recover()
+        app.state.gathering = GatheringRunner(sessions)
+        app.state.gathering.start()
         yield
+        app.state.gathering.close()
         app.state.runner.close()
 
     app = FastAPI(title="AiTrader", version="0.2.0", lifespan=lifespan,
@@ -69,7 +75,7 @@ def create_app(db_engine=None):
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
         response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-Frame-Options"] = "SAMEORIGIN" if request.url.path == "/help/user-guide.html" else "DENY"
         response.headers["Referrer-Policy"] = "same-origin"
         if request.url.path.startswith("/api/"):
             response.headers["Cache-Control"] = "no-store"
@@ -90,6 +96,7 @@ def create_app(db_engine=None):
 
     prefix = "/api/v1"
     register_workspace_routes(app, db_session, identity)
+    register_gathering_routes(app, db_session, identity, lambda run_id: app.state.gathering.submit(run_id))
 
     @app.get(prefix + "/performance/cost-impact", response_model=PerformanceCostView)
     def cost_impact(month: str | None = None, auth=Depends(identity), db=Depends(db_session)):
@@ -299,16 +306,24 @@ def create_app(db_engine=None):
         return {"ok": True}
 
     @app.get(prefix + "/system-status", response_model=dto.SystemStatusView)
-    def status(auth=Depends(identity)):
-        return {"mode": "DEMO", "database": db_engine.dialect.name, "external_requests": False, "live_enabled": False, "timezone": "Europe/Berlin", "currency": "EUR", "worker": "Local single-process worker", "services": [
+    def status(auth=Depends(identity), db=Depends(db_session)):
+        gathering = gathering_config(db, auth.user_id)
+        feeds_enabled = gathering["network_allowed"] and gathering["settings"]["enabled"]
+        return {"mode": "DEMO", "database": db_engine.dialect.name, "external_requests": feeds_enabled, "live_enabled": False, "timezone": "Europe/Berlin", "currency": "EUR", "worker": "Local quant worker and public-feed scheduler", "services": [
             {"name": "Demo market data", "status": "Ready", "detail": "Four fictional EUR instruments; frozen daily bars."},
             {"name": "Research graph", "status": "Ready", "detail": "LangGraph with deterministic evidence fixtures; zero model calls."},
             {"name": "vectorbt", "status": "Ready", "detail": "Actual numerical engine; background runs, next-bar signals, explicit costs."},
             {"name": "Local simulator", "status": "Ready", "detail": "Explicit approval and Decimal ledger; fixture snapshot fills only."},
-            {"name": "OpenAI / external providers", "status": "Not implemented", "detail": "Credentials never activate external access. Adapter implementation remains pending."},
+            {"name": "Public source library", "status": "Ready" if feeds_enabled else "Paused", "detail": "Owner-configured catalog feeds, immutable revisions and historical imports. Collection runs only while the local server is running."},
+            {"name": "OpenAI / paid providers", "status": "Not implemented", "detail": "Zero model calls. Public-feed collection does not activate paid models or market-data adapters."},
             {"name": "PostgreSQL / Redis / Chroma", "status": "Deferred", "detail": "Python and SQLite are the selected local runtime. Additional services are optional future work."},
             {"name": "LPPLS diagnostics", "status": "Pending", "detail": "Dependency probe only; no diagnostic output or probability claimed."},
             {"name": "External paper / live execution", "status": "Disabled", "detail": "No broker submission path is available."}]}
+
+    @app.get("/help/user-guide.html", include_in_schema=False)
+    def user_guide():
+        return FileResponse(ROOT / "docs" / "user-guide.html", media_type="text/html",
+                            headers={"Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'self'; base-uri 'none'; form-action 'none'"})
 
     dist = ROOT / "frontend" / "dist"
     if (dist / "assets").exists():

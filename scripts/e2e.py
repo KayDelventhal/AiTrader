@@ -23,6 +23,7 @@ def isolated_environment(run_dir: Path, instance_id: str) -> dict[str, str]:
         "APP_MODE": "DEMO",
         "DATABASE_URL": f"sqlite:///{(run_dir / 'acceptance.db').as_posix()}",
         "EXTERNAL_REQUESTS_ENABLED": "false",
+        "PUBLIC_FEED_REQUESTS_ALLOWED": "false",
         "LIVE_ENABLED": "false",
         "DEMO_OWNER_PASSWORD": "local-demo-owner",
         "DEMO_PARTNER_PASSWORD": "local-demo-partner",

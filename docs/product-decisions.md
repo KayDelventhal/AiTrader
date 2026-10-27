@@ -64,9 +64,21 @@ The user accepted the FB04 UI and requested selectable models, temperature and r
 
 The recommended next delivery is a manual **Analyze evidence** workflow: import a bounded set of genuine source text with URLs and publication/retrieval times, run a source-linked analyst followed by a critical review, and save both assessments on a timeline. The critic should expose unsupported claims, alternatives, missing evidence and disagreement; a second call is not independent factual verification. Python continues to calculate indicators and monetary values. Genuine source analysis must be distinguishable from existing fictional market bars.
 
-Use the Responses API with validated structured output, server-side credentials and explicit provider activation. Reserve bounded costs before each external attempt, record returned usage and retain uncertain charges across timeout/restart. Start with manually initiated present-day runs; add periodic collection and company/sector/global timelines after the end-to-end path works. A source cutoff alone cannot remove a modern model's prior knowledge of later events, so retrospective exercises must not be presented as strictly blind historical performance tests. Real US/European feed coverage remains a separate required milestone.
+Use the Responses API with validated structured output, server-side credentials and explicit provider activation. Reserve bounded costs before each external attempt, record returned usage and retain uncertain charges across timeout/restart. Start with manually initiated present-day model runs; add scheduled analysis and synthesized company/sector/global timelines after that end-to-end path works. FB06 brings forward public-source collection at the user's request, independently of paid models. A source cutoff alone cannot remove a modern model's prior knowledge of later events, so retrospective exercises must not be presented as strictly blind historical performance tests. Real US/European feed coverage remains a separate required milestone.
 
 Acceptance must cover model capability errors, settings/version freezing, source attribution validation, untrusted-source instructions, refusals/incomplete responses, token/tool cost limits, ambiguous billing and restart handling. Compare model profiles on the same evidence before setting expensive defaults. No paid request or configuration activation is authorized merely by recording these requirements.
+
+## Public-source gathering and help (FB-2026-10-27-06-C86)
+
+The user requested editable research domains, immediate collection and later historical backfills, and selected **Nvidia, Amazon, Macroeconomics and Geopolitics**. Public-source gathering now precedes paid model integration so observations accumulate while the analysis workflow is being built.
+
+- Configure multiple domains and explicitly assign reviewed RSS feeds. Keywords describe interests; they do not yet invoke semantic classification. A macro or political source need not mention Nvidia or Amazon to be retained.
+- Use free public feeds without provider credentials. Start with NVIDIA news, AWS news, Federal Reserve monetary releases, ECB releases and EU Council releases at hourly intervals. AWS covers one part of Amazon; EU Council covers one part of geopolitics. The catalog also offers EIA energy releases. These sources do not establish comprehensive news coverage.
+- Run collection only while the local app and computer are running, with explicit global, source and domain switches. Keep paid analysis and broker execution separate. No recurring Windows task or cloud service is installed.
+- Preserve publication precision, first observation, immutable revisions and collection outcomes. Historical imports are observed when imported, not backdated into the app's knowledge. A small curated, source-linked backfill demonstrates this distinction; it is not a comprehensive archive or a reconstructed historical training dataset.
+- Provide detailed English help both in the app and as a standalone HTML file, covering tabs, buttons, fields, stored data, background processes, shutdown and limitations.
+
+This delivery gathers source material; it does not yet infer market impact, synthesize events or run an LLM. Model controls, cheaper triage, premium analyst/critic roles, assessment history and automatic cost metering remain the next analysis milestone.
 
 ## Delivery status: FB-2026-10-27-04-C86
 

@@ -321,7 +321,7 @@ class ServiceView(BaseModel):
 class SystemStatusView(ResponseModel):
     mode: Literal["DEMO"]
     database: str
-    external_requests: Literal[False]
+    external_requests: bool
     live_enabled: Literal[False]
     timezone: str
     currency: Literal["EUR"]

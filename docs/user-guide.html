@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>AiTrader user guide</title>
+  <style>
+    :root{--bg:#0e151e;--panel:#141e2a;--line:#2c3b4d;--text:#e5edf6;--muted:#afbdcc;--accent:#9ce2ca;--note:#edcb92;--code:#1c2a39;--max:1040px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:5px}h1,h2,h3{line-height:1.2;letter-spacing:-.02em}h1{font-size:clamp(2.1rem,6vw,3.6rem);margin:.4em 0}h2{font-size:1.85rem;margin:0 0 .65em}h3{font-size:1.2rem;margin:1.6em 0 .5em}p{margin:.7em 0 1em}strong{font-weight:650}.wrap{max-width:var(--max);margin:auto;padding:32px clamp(18px,4vw,44px)}header{border-bottom:1px solid var(--line);padding-bottom:32px}.eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}.lead{font-size:1.15rem;color:var(--muted);max-width:850px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:3px 12px;font-size:.8rem;color:var(--muted)}.notice{background:var(--panel);border-left:3px solid var(--accent);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0}.notice p:last-child{margin-bottom:0}.notice.caution{border-color:var(--note)}nav{border:1px solid var(--line);background:var(--panel);padding:22px;border-radius:12px;margin:32px 0}nav h2{font-size:1.1rem}nav ol{columns:2;column-gap:36px;margin:0;padding-left:23px}nav li{padding:3px 0;break-inside:avoid}section{padding:30px 0;border-bottom:1px solid var(--line)}section:last-child{border-bottom:0}.section-number{display:block;font-size:.75rem;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}ul,ol{padding-left:1.4em}li{padding-left:.2em;margin:.4em 0}.table-wrap{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:10px;margin:20px 0}table{width:100%;border-collapse:collapse;font-size:.93rem}th,td{padding:13px 16px;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}th{background:var(--panel);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}td:first-child{font-weight:600;width:29%}tr:last-child td{border-bottom:0}code,kbd{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:var(--code);padding:2px 5px;border-radius:4px}pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;line-height:1.5}pre code{padding:0;background:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--panel);padding:20px;border:1px solid var(--line);border-radius:10px}.card h3{margin-top:0}.small{font-size:.88rem;color:var(--muted)}details{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin:12px 0;padding:12px 18px}summary{cursor:pointer;font-weight:650}details p{margin-bottom:.2em}.back{display:inline-block;font-size:.85rem;margin-top:18px}.skip{position:absolute;left:12px;top:-100px;background:var(--panel);padding:12px;z-index:5}.skip:focus{top:12px}footer{color:var(--muted);padding:30px 0}.flow{font-weight:600;border:1px solid var(--line);border-radius:8px;padding:16px 20px;color:var(--accent)}
+    @media(max-width:650px){.wrap{padding:22px 17px}nav{padding:18px}nav ol{columns:1}.grid{grid-template-columns:1fr}th,td{padding:10px;font-size:.87rem}td:first-child{width:34%}h2{font-size:1.55rem}.notice{padding:12px 15px}section{padding:24px 0}}
+    @media print{:root{--bg:#fff;--panel:#f5f7f9;--line:#bec6cf;--text:#17212b;--muted:#3b4b5e;--accent:#165e4b;--note:#72530e;--code:#f0f2f5}body{font-size:10pt}.wrap{max-width:none;padding:0}header{padding-bottom:12pt}h1{font-size:28pt}h2{font-size:18pt}h3{font-size:12pt}section{padding:18pt 0}nav ol{columns:2}a{color:inherit}h2,h3,summary{break-after:avoid}tr,.card,.notice{break-inside:avoid}.back,.skip{display:none}details> :not(summary){display:block!important}details::details-content{display:block!important;content-visibility:visible!important}pre,.table-wrap{overflow:visible}footer{padding:12pt 0}@page{margin:16mm}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#start">Skip to instructions</a>
+<div class="wrap">
+  <header id="top">
+    <div class="eyebrow">Local research workspace • User manual</div>
+    <h1>AiTrader user guide</h1>
+    <p class="lead">What each area does, how to collect research material, what the application stores, and which background activities continue after you close the browser.</p>
+    <div class="meta"><span class="pill">English interface</span><span class="pill">Python 3.12 + SQLite</span><span class="pill">27 October 2026</span><span class="pill">FB-2026-10-27-06-C86</span></div>
+    <div class="notice"><strong>Two kinds of data live here.</strong><p>The trading screens use fictional instruments, prices and fills. The source library can contain genuine publisher material from public feeds and your historical imports. Collecting a real article does not turn the fictional chart into a real stock chart, and a stored article is not yet an AI assessment.</p></div>
+    <p class="small">This HTML file works offline: it contains its own styling, no scripts, fonts, trackers or remote assets. External reference links open only when selected. Use your browser’s Find command to search the guide and Print to create a PDF. The live app provides <strong>Open full guide</strong> and <strong>Download HTML guide</strong> in Help &amp; guide.</p>
+  </header>
+
+  <nav aria-label="Guide contents">
+    <h2>Find the task you need</h2>
+    <ol>
+      <li><a href="#start">Start, sign in and stop the app</a></li>
+      <li><a href="#navigation">Navigation and shared controls</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#terminal">Terminal and chart replay</a></li>
+      <li><a href="#strategies">Strategy lab and saved runs</a></li>
+      <li><a href="#research">Research &amp; events</a></li>
+      <li><a href="#gathering">Configure domains and collection</a></li>
+      <li><a href="#history">Source library and historical imports</a></li>
+      <li><a href="#portfolio">Portfolio, approvals and kill switch</a></li>
+      <li><a href="#settings">Workspace settings and status</a></li>
+      <li><a href="#costs">Expenses, commitments and budget</a></li>
+      <li><a href="#storage">Stored data, exports and backups</a></li>
+      <li><a href="#background">Background work and recovery</a></li>
+      <li><a href="#limits">Current boundaries and planned AI</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+      <li><a href="#glossary">Terms used in the application</a></li>
+    </ol>
+  </nav>
+
+  <main>
+  <section id="start">
+    <span class="section-number">01 / GET STARTED</span><h2>Start, sign in and stop the app</h2>
+    <p>Open PowerShell in the AiTrader repository and run the existing virtual environment’s Python. The start command applies database migrations, creates missing initial records, and serves the built application on your computer:</p>
+    <pre><code>.\.venv\Scripts\python.exe scripts\manage.py start</code></pre>
+    <p>Visit <a href="http://127.0.0.1:8000" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8000</a>. Select a <strong>Demo account</strong>, check the <strong>Password</strong>, then select <strong>Open demo workspace</strong>. The standard owner account is Alex Morgan (<code>owner</code>, password <code>local-demo-owner</code>); the partner is Sam Taylor (<code>partner</code>, password <code>local-demo-partner</code>). A password configured during initial setup may replace the standard value.</p>
+    <p>The owner can manage the shared collection configuration and operating costs. The partner can read those shared records. Accounts, proposals, personal watchlists, annotations and job access retain their own user boundaries. This preview is intended for the local computer, with intentionally known demo credentials.</p>
+    <p>To stop the managed server and its workers, run:</p>
+    <pre><code>.\.venv\Scripts\python.exe scripts\manage.py stop</code></pre>
+    <p>Closing a browser tab, signing out or closing the terminal that launched the server does <strong>not</strong> stop the managed process. The stop command checks its saved process identity before stopping it. Saved database records remain available the next time you start. The app cannot collect feeds while the server or computer is stopped.</p>
+    <a class="back" href="#top">Back to contents</a>
+  </section>
+
+  <section id="navigation">
+    <span class="section-number">02 / SHARED CONTROLS</span><h2>Navigation and workspace controls</h2>
+    <div class="table-wrap"><table><thead><tr><th>Control</th><th>What it does</th></tr></thead><tbody>
+      <tr><td>Sidebar areas</td><td>Open Overview, Terminal, Strategy lab, Research &amp; events, Portfolio &amp; approvals, Settings &amp; status, or Help &amp; guide. The active area is highlighted.</td></tr>
+      <tr><td>AiTrader logo</td><td>Returns to Overview.</td></tr>
+      <tr><td>Toggle navigation</td><td>Opens or closes the navigation menu on smaller screens. Choosing an area closes the menu.</td></tr>
+      <tr><td>Search instruments</td><td>Searches the instrument names and symbols already loaded in this workspace. Selecting a result opens its Terminal chart. It is not a web search, stock-universe lookup, or source-library search.</td></tr>
+      <tr><td>Notifications</td><td>Opens local notifications. Selecting an entry marks it read. Current fixture research can create a notice; this is not an email or messaging service.</td></tr>
+      <tr><td>Sign out</td><td>Ends the current browser session and clears its cached account view. It does not stop collection or erase stored records.</td></tr>
+      <tr><td>Dismiss message</td><td>Closes the temporary success or error message. Dismissing a message does not undo the operation.</td></tr>
+      <tr><td>Retry</td><td>Reloads the failed view. Review an error before repeating a write; a lost response can mean a previous action already completed.</td></tr>
+    </tbody></table></div>
+    <p>Most edits require a specific Save button. Text still being edited in a form is not necessarily stored; changing areas or closing a dialog can discard unsaved input. On small screens, long tables scroll inside their panel and tall dialogs scroll to reveal their action buttons.</p>
+  </section>
+
+  <section id="overview">
+    <span class="section-number">03 / OVERVIEW</span><h2>Read the workspace at a glance</h2>
+    <p>Overview summarizes the fictional trading workspace. <strong>Paper cash</strong> is the local demo account’s spendable cash. <strong>On your watchlist</strong> counts watched fictional instruments. <strong>Strategy versions</strong> counts saved strategy records, not running trading systems. <strong>Awaiting your review</strong> counts local proposals that still have a valid approval window.</p>
+    <p><strong>Open terminal</strong> and <strong>Full terminal</strong> lead to the detailed chart area. The instrument buttons above the market chart switch the selected fictional instrument. The shown change is based on the fixture’s last bars; it is not a live market movement.</p>
+    <p><strong>On the radar</strong> contains the original synthetic event examples. Select a card or <strong>Explore all research</strong> to open Research &amp; events. Genuine collected publications appear in its separate Source library tab. <strong>Manage</strong> beside the watchlist opens Terminal; selecting a watchlist row opens that instrument. <strong>Open strategy lab</strong> opens the strategy notebook. <strong>View setup</strong> opens Settings &amp; status.</p>
+  </section>
+
+  <section id="terminal">
+    <span class="section-number">04 / TERMINAL</span><h2>Explore charts, indicators and replay</h2>
+    <p>The Terminal combines an instrument list, a daily candlestick chart and fixture research context. Select an instrument to load its chart. Watchlist stars add or remove the instrument from your personal watchlist; they do not create a trade. Wider layouts have draggable panel dividers for adjusting space.</p>
+    <p>A candle represents one fictional daily bar. The displayed <strong>O, H, L, C, V</strong> values mean open, high, low, close and volume for the latest visible bar. Use the chart’s crosshair, mouse wheel and dragging to inspect and navigate its time and price axes. The current interval is <strong>1D</strong>; selecting another holding horizon elsewhere does not create hourly or intraday bars.</p>
+    <div class="table-wrap"><table><thead><tr><th>Control</th><th>Effect</th></tr></thead><tbody>
+      <tr><td>Chart indicator</td><td>Chooses one indicator view: SMA 20/50, EMA 20, Bollinger bands, Wilder RSI 14, MACD 12/26/9, or No indicator. RSI and MACD use a lower pane. Selecting a view replaces the previous indicator selection.</td></tr>
+      <tr><td>Replay</td><td>Moves the visible daily chart to an earlier cutoff. The server returns bars and indicators eligible at that cutoff.</td></tr>
+      <tr><td>Replay cutoff slider</td><td>Selects the last displayed bar. Moving it forward deliberately reveals later bars; moving it back reduces the displayed history.</td></tr>
+      <tr><td>Advance one bar</td><td>Reveals the next daily candle when replay is active. It is disabled at the end of the dataset.</td></tr>
+      <tr><td>Reset replay</td><td>Returns to the full fixture view. This does not reset cash, positions or past research runs.</td></tr>
+      <tr><td>Price level / Add level</td><td>Saves a horizontal annotation for the selected instrument and chart cutoff. Enter a positive price, then save. A drawing is not an order or an automated trading rule.</td></tr>
+      <tr><td>Undo last level</td><td>Removes your latest visible saved level. It does not undo a fill or a backtest.</td></tr>
+      <tr><td>Context event cards</td><td>Open the fixture research area. The chart’s context list respects the selected information cutoff.</td></tr>
+      <tr><td>Review evidence</td><td>Queues the deterministic fixture research for the selected instrument and cutoff. Results appear in Research &amp; events. It makes no LLM call.</td></tr>
+    </tbody></table></div>
+    <div class="notice caution"><strong>Replay has a limited scope.</strong><p>It filters chart and fixture context display; it does not reconstruct your historical account or make the entire browser a strictly blind training environment. Advanced trend lines, Fibonacci tools, position drawings, live order books and automatic chart annotation are not implemented in this version.</p></div>
+  </section>
+
+  <section id="strategies">
+    <span class="section-number">05 / STRATEGY LAB</span><h2>Save an idea and test a specific version</h2>
+    <p>The strategy notebook currently implements a long-only moving-average crossover strategy. It enters when the fast SMA crosses above the slow SMA and exits on the reverse crossover. The backtest executes signals at the next bar’s open and includes the selected fees and slippage. The numerical engine is vectorbt; the dataset is still fictional.</p>
+    <div class="table-wrap"><table><thead><tr><th>Field or button</th><th>Meaning</th></tr></thead><tbody>
+      <tr><td>Notebook version</td><td>Loads that saved version into the form and selects it as the workbench’s backtest subject. Editing the form does not alter the saved version.</td></tr>
+      <tr><td>New strategy</td><td>Starts a new draft with a new name and hypothesis. Its horizon starts with Use workspace default when saving. Check the other inherited form values before saving.</td></tr>
+      <tr><td>Strategy name / Hypothesis</td><td>Record the idea and the mechanism you want to test. State what would disprove it; this text alone does not define additional trading logic.</td></tr>
+      <tr><td>Instrument</td><td>Chooses a currently supported fictional instrument. A real company research domain is a different object.</td></tr>
+      <tr><td>Strategy horizon</td><td>Records intraday, days to weeks, weeks to months, or the workspace default resolved when saving. It describes intended holding time; the current engine still uses daily fixture bars.</td></tr>
+      <tr><td>Fast SMA / Slow SMA</td><td>Set the averaging periods. The fast period must be smaller than the slow period.</td></tr>
+      <tr><td>Whole shares</td><td>Sets the strategy’s whole-share trade size.</td></tr>
+      <tr><td>Fees / Slippage</td><td>Specify basis points; 100 basis points equal 1%. These costs affect the backtest’s hypothetical execution.</td></tr>
+      <tr><td>Save strategy draft / Save new version</td><td>Persists an immutable version. Saving your existing strategy creates another version; it does not rewrite previous results or activate automatic trading.</td></tr>
+      <tr><td>Run backtest</td><td>Queues the selected saved version, not unsaved form edits. Exact inputs are captured before the background calculation starts.</td></tr>
+      <tr><td>Export result and assumptions</td><td>Downloads the selected result as JSON, including its reported assumptions. It does not execute an order.</td></tr>
+    </tbody></table></div>
+    <p>The workbench shows total return, maximum drawdown, closed trades and win rate. An undefined win rate is a meaningful result when no qualifying closed trades exist. The equity curve shows hypothetical capital through time. The execution journal lists fill and signal dates, side, shares, price and fees. Read the higher-cost sensitivity and assumptions alongside the headline return.</p>
+    <h3>Saved runs</h3>
+    <p><strong>Inspect a saved run</strong> changes the displayed completed or pending job. <strong>Selected result</strong> identifies its subject and version, which can differ from the form currently open. The holding horizon and attributed expenses remain attached to that run. “No expenses attributed” means no costs were assigned to that job; shared research may still have costs in Settings.</p>
+    <p><strong>Frozen inputs</strong> means the app saved the submitted data and an integrity digest. <strong>Export inputs</strong> downloads that snapshot. <strong>Legacy run</strong> marks an older run for which those inputs were never captured; the app does not invent them retrospectively. History currently covers the latest 50 jobs across the signed-in user’s backtest and fixture-research jobs.</p>
+  </section>
+
+  <section id="research">
+    <span class="section-number">06 / RESEARCH &amp; EVENTS</span><h2>Choose the right research tab</h2>
+    <div class="grid"><article class="card"><h3>Source library</h3><p>Genuine publisher excerpts and links collected from public feeds, plus text you manually import. Use its filters and revision history to inspect what the application has stored.</p></article><article class="card"><h3>Gathering setup</h3><p>Shared research domains, source assignments, intervals, collection enablement and the log of actual collection attempts. This is where you configure ongoing gathering.</p></article></div>
+    <h3>Demo research</h3>
+    <p>This tab retains the original synthetic event workflow. Its domain filter buttons choose which fixture cards appear. Selecting an event opens its summary, potential transmission path, connected fictional instruments, counterargument, evidence trail and next check. Origin/copy counts shown here are illustrative fixture data, not a claim that the live collector already detects every syndicated copy.</p>
+    <p><strong>Export event evidence</strong> downloads the selected fixture. Under Evidence review, choose <strong>Review instrument</strong> and select <strong>Run evidence review</strong>. The saved result shows deterministic workflow steps, findings, counterarguments and evidence identifiers. It uses LangGraph orchestration but zero model calls. Saved runs and input exports work as described in Strategy lab.</p>
+    <p>The real Source library does not automatically feed this demo review. Keeping them distinct makes it possible to inspect genuine evidence without presenting fictional charts or fixed text as a real model conclusion.</p>
+  </section>
+
+  <section id="gathering">
+    <span class="section-number">07 / DATA GATHERING</span><h2>Configure several domains and start collection</h2>
+    <p>Open <strong>Research &amp; events → Gathering setup</strong>, or use <strong>Settings &amp; status → Research gathering → Configure gathering</strong>. A domain is a durable research interest: a company, sector, commodity, country, macroeconomic theme or geopolitical issue. The initial interests are NVIDIA, Amazon, macroeconomics and geopolitics. You can add others without creating another database.</p>
+    <h3>Research domains</h3>
+    <p>Select <strong>Add domain</strong> or an existing card’s <strong>Edit domain</strong>. Enter a <strong>Domain name</strong>, a <strong>Domain description</strong>, and optional <strong>Keywords and related entities</strong>, separated by commas. <strong>Active research interest</strong> marks whether that topic is currently active. Select <strong>Save research domain</strong> to persist it, or <strong>Cancel</strong> to discard the form.</p>
+    <p>Examples of useful keywords include a company’s name, ticker, important supplier, sector and known exposure such as chips, cloud, energy, export restrictions or interest rates. These are stored research metadata in this version. They are not a functioning semantic classifier or a filter that rejects every article lacking the words. Changing a domain does not rewrite its older recorded snapshots. New feed runs exclude inactive domain assignments; when all assigned domains are inactive, that source pauses until at least one becomes active again. Manual historical imports can still be assigned to an inactive domain.</p>
+    <h3>Collection sources</h3>
+    <p>Select <strong>Add source</strong>, choose from the <strong>Public feed catalog</strong>, select one or more <strong>Domains this source may inform</strong>, choose <strong>Check every (minutes)</strong>, and decide whether to <strong>Enable this source for collection</strong>. Select <strong>Save collection source</strong>. The allowed interval is 15 to 10,080 minutes; 60 minutes is a practical initial setting for these publishers. <strong>Edit source</strong> changes its assignments, interval or enabled state.</p>
+    <p>A single source can inform several domains and is downloaded once for that configured source. Broad monetary-policy or geopolitical feeds can be assigned alongside company domains even when the company is not named. The assignments mean “configured coverage,” not “every article affects every selected company.” The present collector retains the feed material for later review; it does not yet assign an LLM relevance score or causal claim.</p>
+    <div class="table-wrap"><table><thead><tr><th>Catalog source</th><th>What it covers</th></tr></thead><tbody>
+      <tr><td>NVIDIA newsroom</td><td>Company-authored announcements and news. This is a first-party view, not independent confirmation. NVIDIA describes its RSS service as individual, non-commercial information use.</td></tr>
+      <tr><td>AWS news blog</td><td>Amazon Web Services cloud and product announcements. It is useful Amazon-related context, but does not cover all Amazon retail, earnings, workforce or regulatory developments.</td></tr>
+      <tr><td>Federal Reserve monetary policy</td><td>US central-bank policy releases and meeting-related announcements.</td></tr>
+      <tr><td>European Central Bank press</td><td>Euro-area central-bank releases, speeches, interviews and press conference material.</td></tr>
+      <tr><td>Council of the EU press</td><td>Official EU decisions and statements, including international relations, sanctions and economic policy. It is not a complete global news service.</td></tr>
+      <tr><td>EIA Today in Energy</td><td>Energy facts, issues and trends from the US Energy Information Administration.</td></tr>
+    </tbody></table></div>
+    <p>The current catalog contains reviewed public RSS endpoints. The UI does not accept arbitrary feed URLs, scrape article pages or purchase news subscriptions. Some feeds provide a useful excerpt; others provide mainly a headline and link. The original publication remains accessible from the stored record. Respect publisher attribution and the source’s usage terms when using or sharing material.</p>
+    <h3>Start, pause and inspect gathering</h3>
+    <ol>
+      <li>Save at least one source with its own collection checkbox enabled and at least one active assigned domain.</li>
+      <li>Select the workspace-level <strong>Enable collection</strong> button. The banner changes to Collection enabled when the runtime also permits public requests.</li>
+      <li>Use a source’s <strong>Collect now</strong> to queue a check, or let its scheduled check become due.</li>
+      <li>Read the <strong>Collection run log</strong>, then switch to Source library to inspect stored records.</li>
+    </ol>
+    <p><strong>Pause collection</strong> stops new workspace collection requests. Disabling an individual source pauses only that source. Existing documents remain stored, and a request already in flight may still complete. The application and computer must remain running for scheduled collection. It does not create an operating-system task or a cloud service.</p>
+    <p>Each source shows its <strong>Check interval</strong>, <strong>Last checked</strong>, <strong>Last success</strong>, <strong>Next due</strong> and latest error. Last checked means an attempt began; it does not prove a successful retrieval. A success can legitimately add zero new records because all supplied content was already stored.</p>
+    <p>The run log distinguishes manual requests and scheduled checks. <strong>QUEUED</strong> is waiting, <strong>RUNNING</strong> is fetching, <strong>SUCCEEDED</strong> means the retrieval and storage step completed, <strong>FAILED</strong> records a failed or interrupted attempt, and <strong>CANCELLED</strong> means a queued request was not allowed to start. Counts distinguish received items, new documents, new revisions and unchanged records. A failed source is not replaced with demo material.</p>
+    <a class="back" href="#top">Back to contents</a>
+  </section>
+
+  <section id="history">
+    <span class="section-number">08 / EVIDENCE OVER TIME</span><h2>Browse the source library and import older events</h2>
+    <p>Open <strong>Source library</strong> to see stored documents. The view lists publication title, publisher, source kind, current eligible revision, excerpt, recorded domains and key dates. Select a document card to open <strong>Stored source and revisions</strong>.</p>
+    <div class="table-wrap"><table><thead><tr><th>Timeline control</th><th>How to use it</th></tr></thead><tbody>
+      <tr><td>Research domain</td><td>Shows documents recorded under that domain. All research domains removes this restriction. Domain tags are retained with source revisions.</td></tr>
+      <tr><td>Collection source</td><td>Restricts the view to one configured feed. All sources and manual imports includes everything you can inspect.</td></tr>
+      <tr><td>Search stored sources</td><td>Searches saved titles and source text. It does not call a search engine or retrieve new articles.</td></tr>
+      <tr><td>Published from / Published through</td><td>Restricts the publisher’s publication date using inclusive UTC calendar-day boundaries. Unknown publication dates are not fabricated to make them fit a range.</td></tr>
+      <tr><td>Known by this app (UTC)</td><td>Chooses only revisions actually available to the application by that timestamp. This is a different question from “when was the article published?”</td></tr>
+      <tr><td>Apply timeline filters</td><td>Applies the entered filter values together and returns to the first page.</td></tr>
+      <tr><td>Reset filters</td><td>Clears the restrictions and displays the current library.</td></tr>
+      <tr><td>Previous / Next</td><td>Moves through pages of 20 matching documents. The count above the list reports all matches, not just the current page.</td></tr>
+    </tbody></table></div>
+    <h3>Read dates correctly</h3>
+    <p>The source library displays timestamps explicitly in <strong>UTC</strong>. Other app areas may display Europe/Berlin; a date input marked UTC must be entered as UTC, even if the browser’s native date picker uses your operating-system language.</p>
+    <div class="table-wrap"><table><thead><tr><th>Date</th><th>Meaning</th></tr></thead><tbody>
+      <tr><td>Published</td><td>The publication timestamp supplied by the feed or historical importer, or a separately stored date-only value. A date-only record is labelled as such and does not imply a known midnight timestamp. Unknown, malformed or timezone-ambiguous feed timestamps remain Not recorded.</td></tr>
+      <tr><td>Event occurred</td><td>An optional separately supplied event time, such as when a policy decision happened. It is not automatically inferred from an article title.</td></tr>
+      <tr><td>Publisher updated</td><td>An update timestamp supplied by the feed, when one exists.</td></tr>
+      <tr><td>First seen by this app</td><td>When this document identity was first stored locally. Importing a 2020 article today gives it today’s first-seen time.</td></tr>
+      <tr><td>This revision recorded</td><td>When the app stored this particular version of the source material and its attribution.</td></tr>
+      <tr><td>This revision available</td><td>The earliest eligible app-knowledge time. A publisher claim dated in the future does not become earlier evidence merely because it was fetched now.</td></tr>
+    </tbody></table></div>
+    <p>Select a <strong>Revision history</strong> entry to inspect an earlier saved version. <strong>Export source history</strong> downloads the document and the revisions visible under the current knowledge cutoff as JSON. <strong>Open original publication</strong> opens the publisher’s URL in a separate browser tab. The remote page may have changed since collection; the stored excerpt records what the app retained at its observation time.</p>
+    <h3>Import historical material</h3>
+    <p>Select <strong>Import historical source</strong>. Supply the <strong>Publisher</strong>, an HTTPS <strong>Publication URL</strong>, a <strong>Publication title</strong> and the <strong>Source text or excerpt</strong> you want to retain. Choose the relevant domains. Choose <strong>Publication date precision</strong>: Unknown, Date only or Exact date and time. Date only asks for a <strong>Publication date only</strong> value; Exact date and time asks for <strong>Published at (UTC)</strong>. Do not invent a time when the publisher supplies only a date. Optionally add <strong>Event occurred at (UTC)</strong> and an <strong>Import note</strong> explaining provenance, corrections or uncertainty. Select <strong>Import source</strong> to save it; Cancel closes the form without saving.</p>
+    <p>The form accepts up to 50,000 characters of source text. It does not fetch the entered URL or certify that your text is authentic. Keep sufficient original context and a traceable source reference. Reimporting changed material under the same manual publication identity creates a new revision; previous content is retained. The application uses request identifiers to avoid storing the same submitted operation twice after a repeated response.</p>
+    <div class="notice"><strong>Example: old publication, newly acquired knowledge.</strong><p>Suppose you import an article published on 15 March 2020 on 27 October 2026. It belongs in a publication timeline for March 2020, but a “Known by this app” cutoff in 2020 must exclude it. The app did not possess that record then. An archived historical dataset needs its own evidence of which version was available at the historical time.</p></div>
+    <p>Public RSS feeds usually expose a limited recent window. Collecting them now starts a durable local history and may bring in some older items still present in the feed; it does not reconstruct every event from previous years. Historical source imports provide an initial backfill path. Large archive connectors, automated event extraction, semantic deduplication across publishers and verified historical availability are separate future work.</p>
+  </section>
+
+  <section id="portfolio">
+    <span class="section-number">09 / LOCAL SIMULATION</span><h2>Portfolio, proposals and explicit approval</h2>
+    <p>This area is a fictional local account starting with EUR 10,000. <strong>Available cash</strong> is not borrowed money. <strong>Position value</strong> uses frozen fixture prices. <strong>Realized P&amp;L</strong> includes booked execution fees. The standard order controls limit an order to EUR 500 including fees and a position to EUR 1,000.</p>
+    <p>To exercise the workflow, choose <strong>Instrument</strong>, <strong>Side</strong> (BUY or SELL) and <strong>Whole shares</strong>, then select <strong>Create proposal</strong>. The app validates cash, holdings and limits, stores the proposed payload, and opens the review dialog. It does not fill the order merely because you created it.</p>
+    <p>The review shows the exact quantity, fill price, fee, total debit or credit, reference fixture date, expiry and order fingerprint. The simulated fill assumption is a fixture snapshot with slippage, not a real broker or next-open market execution. Select <strong>Approve local fill</strong> to book that exact proposal once, or <strong>Reject</strong> to reject it. Closing the dialog leaves the proposal awaiting approval until it expires or is otherwise resolved. <strong>Review proposal</strong> reopens an eligible pending proposal.</p>
+    <p>Approval normally expires after 120 seconds and is tied to the account state. If another fill or account control changed that state, create and review a new proposal. Repeating approval for an already completed proposal does not book another fill.</p>
+    <p><strong>Pause local execution</strong> activates the kill switch and blocks new fills; it does not sell your positions. <strong>Resume local execution</strong> allows new proposals after review. The Positions table, Proposals &amp; fills list and Audit trail show recorded changes. <strong>Export journal</strong> downloads the account, proposals and visible audit records with their LOCAL_DEMO environment label.</p>
+  </section>
+
+  <section id="settings">
+    <span class="section-number">10 / SETTINGS &amp; STATUS</span><h2>Choose defaults and inspect capabilities</h2>
+    <p><strong>Markets to observe</strong> contains United States and Europe. These are persisted planning choices, not proof that real quote providers are connected. At least one market must remain selected. <strong>Default research horizon</strong> starts at Days to weeks; you can select another supported holding horizon for future work. A saved strategy or completed run keeps its original horizon.</p>
+    <p><strong>Monthly operating limit (EUR)</strong> starts at EUR 20 and is shared across AI, search/news and market-data expenses. Select <strong>Save workspace defaults</strong> to apply an explicit change. The revision badge identifies the current saved configuration. If another editor changed it first, refresh and review the new values instead of silently overwriting them. The partner sees these settings read-only.</p>
+    <p><strong>Research gathering → Configure gathering</strong> leads to the actual domain/source controls. The <strong>Current environment</strong> and <strong>Integration readiness</strong> panels distinguish available local functions, public collection, pending integrations and disabled execution. Public-feed collection is a separate permission from paid LLM or broker access. A key present in <code>.env</code> does not itself activate a provider.</p>
+    <p>Reading a Ready status for the local numerical engine means that component is integrated. It does not validate every external data provider, optional service or future feature. A Pending or Not implemented label is deliberate: the UI must not substitute a fabricated success for a missing capability.</p>
+  </section>
+
+  <section id="costs">
+    <span class="section-number">11 / OPERATING COSTS</span><h2>Track actual bills and protect the budget</h2>
+    <p>The operating-cost dashboard lives in Settings &amp; status. Select a <strong>Budget month</strong> to inspect that Europe/Berlin calendar month. <strong>Export cost ledger</strong> downloads totals, records, revision history and pricing/FX references. The budget changes only through an explicit owner save; positive demo performance never increases it.</p>
+    <div class="table-wrap"><table><thead><tr><th>Amount</th><th>What it means</th></tr></thead><tbody>
+      <tr><td>Confirmed expenses</td><td>Recorded bills or reconciled usage with a known amount.</td></tr>
+      <tr><td>Estimated expenses</td><td>Incurred usage for which a usable estimate exists, awaiting final billing.</td></tr>
+      <tr><td>Reserved this month</td><td>Committed allowance for work or monthly charges that have not yet been booked as an incurred expense.</td></tr>
+      <tr><td>Available for paid work</td><td>The remaining allowance after expenses and commitments. Unresolved earlier-month work can still reduce it.</td></tr>
+      <tr><td>Unknown costs</td><td>An unpriced charge exists. Additional paid admission is blocked until it is resolved; the application does not treat missing information as free.</td></tr>
+    </tbody></table></div>
+    <h3>Record an expense</h3>
+    <p>Select <strong>Record expense</strong>. Enter Provider, Cost category, Expense description and Cost certainty. Categories are AI analysis, Search &amp; news and Market data. Choose Confirmed amount, Estimated amount or Unknown or uncertain charge. Known amounts need the Original amount and three-letter Billing currency.</p>
+    <p>For a non-EUR bill, enter <strong>EUR per 1 [currency]</strong> and the <strong>FX reference time (UTC)</strong>. For example, a USD bill converted at 0.90 EUR per USD uses 0.90, not its inverse. Keep a Pricing or invoice reference that explains the rate or invoice basis. The backend uses Decimal accounting and stores micro-EUR amounts; UI formatting is not the accounting engine.</p>
+    <p><strong>Assign cost to</strong> leaves the charge shared or assigns it to one saved analysis/backtest or one owned strategy version. Attribution records the charge once. It does not copy the full expense across every instrument or prove that a particular analysis generated a profit. Select Record expense to save it; Cancel discards the form. Recording a bill does not contact or pay a provider.</p>
+    <h3>Correct a record and inspect history</h3>
+    <p>Each ledger row offers <strong>History</strong> and, for the owner, <strong>Update</strong>. History shows revision, actor, time, reason, recorded expense, original billing amount and conversion basis. Update lets you reconcile an estimate or unknown amount with the bill. Enter a <strong>Reason for update</strong> and select <strong>Save cost update</strong>. Earlier records remain available.</p>
+    <p>An eligible uncharged reservation can be marked Cancelled — no charge. A manual bill that was entered incorrectly can be corrected to a confirmed amount of zero with an explanation. The app records real late bills even when they exceed the ceiling; it blocks new paid admission rather than hiding an incurred expense.</p>
+    <h3>Monthly commitments</h3>
+    <p><strong>Add monthly commitment</strong> records an existing or planned recurring accounting obligation: Commitment provider, category, description and Monthly commitment (EUR). <strong>Save monthly commitment</strong> reserves its amount once per applicable month. It does not buy a subscription. Reconcile each generated monthly cost when the actual bill is known.</p>
+    <p><strong>Stop future entries</strong> prevents future local monthly commitments and keeps the current and historical entries. It does not cancel the external provider subscription. Recurring entries materialize when the app performs a relevant cost/report operation; this is accounting behavior, not proof that an external invoice was received.</p>
+    <h3>Trading results &amp; operating expenses</h3>
+    <p>This panel separates realized demo P&amp;L, unrealized fixture valuation and an illustrative result after expenses. The illustration subtracts all shared confirmed and estimated monthly operating expenses from the current account’s realized demo P&amp;L. Reserved amounts are shown separately, and fees already booked in trading P&amp;L are not deducted twice. Unknown costs or an account that cannot be reconstructed from saved fills make the complete net result unavailable.</p>
+    <p>The cost ledger can contain real bills even though the trading profits are fictional. Demo gains cannot fund those bills. Automatic provider billing import and actual paid LLM usage collection remain pending; expenses elsewhere in the same provider account are not automatically visible here. Public-feed gathering in this milestone makes no paid model calls.</p>
+  </section>
+
+  <section id="storage">
+    <span class="section-number">12 / YOUR DATA</span><h2>What is stored, and where</h2>
+    <p>The default local database is <code>.runtime/aitrader.db</code>. SQLite may also create its normal write-ahead-log sidecar files while the app runs. The database retains users and password hashes, sessions, personal watchlists, fictional instrument bars, fixture events, strategy versions, job inputs/results, accounts, proposals/fills, annotations, notices and audit records.</p>
+    <p>It also retains workspace setting revisions, budget months, cost records/corrections and recurring commitments. Gathering adds domains, source configuration, collection run snapshots/results, source-document identities, immutable content revisions and historical import records. A later source correction adds a revision rather than quietly replacing the earlier stored content. Duplicate detection is scoped to a source/publication identity; the app does not yet equate every syndicated article across different publishers.</p>
+    <p><code>.env</code> stays on the server side and may hold credentials or runtime preferences. It is not the place to configure each research domain; use Gathering setup. The source collector uses reviewed public URLs without API keys. Python dependencies are in <code>.venv/</code>. Local tooling is in <code>.tools/</code>. Logs are in <code>.runtime/server.stdout.log</code> and <code>.runtime/server.stderr.log</code>. Browser tests use separate databases under <code>.runtime/e2e/</code>; screenshots and other local validation outputs are in <code>artifacts/</code>.</p>
+    <h3>Exports are useful, but not complete backups</h3>
+    <p>Individual JSON downloads preserve a selected run, input snapshot, source history, cost report or account journal. A whole-database backup preserves the connected workspace state. Use the supplied SQLite online backup command so a consistent snapshot is taken even while the app is running. Choose a new destination name:</p>
+    <pre><code>.\.venv\Scripts\python.exe scripts\manage.py backup .runtime\my-backup.db
+.\.venv\Scripts\python.exe scripts\manage.py restore .runtime\my-backup.db .runtime\restored-copy.db
+.\.venv\Scripts\python.exe scripts\verify_persistence.py .runtime\my-backup.db .runtime\restored-copy.db</code></pre>
+    <p>Restore always writes to a new destination; it does not overwrite or automatically switch the running database. Verification compares application table schemas and rows and checks SQLite integrity and foreign keys. Backups contain private source text, password hashes and session records. Store them accordingly. A database backup does not separately back up your <code>.env</code>, application source or downloaded HTML guide.</p>
+  </section>
+
+  <section id="background">
+    <span class="section-number">13 / BACKGROUND WORK</span><h2>What runs when you are not looking</h2>
+    <p>The current application is a single local server process with separate bounded workers for numerical/research jobs and public-feed collection. You do not need Docker, Redis, Celery or a cloud account to use it. The browser is a view into that process; it is not the scheduler.</p>
+    <div class="table-wrap"><table><thead><tr><th>Activity</th><th>Behavior</th></tr></thead><tbody>
+      <tr><td>Backtest / fixture research</td><td>Queued through the app, calculated in the local worker, saved in SQLite. Interrupted running jobs are marked failed after restart rather than claimed complete. Pending jobs can resume.</td></tr>
+      <tr><td>Public-feed scheduler</td><td>Checks enabled sources for due work while the process is running. Each source is fetched one at a time. Missed intervals are coalesced into a current check instead of replaying every missed hourly request.</td></tr>
+      <tr><td>Collection request</td><td>Uses a fixed catalog endpoint, timeout, download-size and item limits. It does not follow redirects, fetch every article link or pass source text to an LLM.</td></tr>
+      <tr><td>Source revisions</td><td>Unchanged material is counted without a duplicate revision. Changed content or recorded attribution is retained as a new version with its actual observation time.</td></tr>
+      <tr><td>Interrupted feed run</td><td>Marked failed during recovery. A subsequent scheduled or manual check can read the current feed; persistent identity checks prevent it from duplicating unchanged documents.</td></tr>
+      <tr><td>View refreshes</td><td>The UI refreshes active jobs and collection views periodically. Browser polling is not proof that a new external request was made.</td></tr>
+    </tbody></table></div>
+    <p>The collector takes at most 100 feed entries from a bounded 2 MiB response and rejects unsafe or unsupported XML. This limit is another reason that a successful collection is not a complete archive. It records summaries provided by the feed and does not import full article bodies through linked-page scraping.</p>
+    <p>A runtime-level public-network disable switch can prevent all feed requests even if saved source settings are enabled. Tests use this boundary to keep real network calls out of isolated validation. For ordinary use, the app’s workspace toggle and each source’s checkbox still need to permit collection. Running multiple independent application processes is not a supported distributed deployment.</p>
+  </section>
+
+  <section id="limits">
+    <span class="section-number">14 / CURRENT BOUNDARIES</span><h2>What is real now, and what is still planned</h2>
+    <div class="grid"><article class="card"><h3>Working locally</h3><p>Public feed retrieval when enabled; editable research domains and source assignments; a persistent source library with revisions and manual historical imports; numerical indicator/backtest calculations on fixture prices; frozen run inputs; a precise fictional ledger; manual operating-cost accounting; local help and exports.</p></article><article class="card"><h3>Not connected yet</h3><p>Real US/European stock-price feeds, real trading instruments and broker execution; paid news/search adapters; LLM analysis and automatic model billing; semantic event extraction and full longitudinal reasoning; advanced chart drawings and fully isolated historical training.</p></article></div>
+    <p>The next AI workflow is intended to use cheaper models for domain triage and premium models for substantive analysis and critical review, with selectable model settings, bounded rounds and recorded cost. These planned controls are not hidden in an existing tab: they have not yet been implemented. Supplying an OpenAI key or collecting a feed will not activate them automatically.</p>
+    <p>The intended review cycle is source-linked analysis, critique and a bounded revision, retaining unresolved disagreement. Model-specific temperature and reasoning options will be validated; unsupported settings will not be presented as effective. A future system must also distinguish a model’s prior knowledge from the evidence available at a historical cutoff. Modern-model retrospective exercises cannot automatically be treated as blind historical tests.</p>
+  </section>
+
+  <section id="troubleshooting">
+    <span class="section-number">15 / TROUBLESHOOTING</span><h2>When something looks unexpected</h2>
+    <details><summary>I cannot find where to configure news gathering.</summary><p>Open Research &amp; events, then Gathering setup. Settings &amp; status also has Research gathering → Configure gathering. Domains and source schedules live there; the terminal watchlist controls fictional instruments and is a separate feature.</p></details>
+    <details><summary>Collect now is disabled.</summary><p>Check that you are signed in as the owner, workspace collection is enabled, the source itself is enabled, at least one assigned domain is active, the runtime allows public requests, and no run is already active for that source. A source whose assigned domains are all inactive is paused for new collection.</p></details>
+    <details><summary>The source says SUCCEEDED but no new documents appeared.</summary><p>Read the run counts. The feed may contain only previously stored material. Clear library filters, including Known by this app, and check the chosen domain/source. Feed windows are limited; collection success does not mean that new events occurred.</p></details>
+    <details><summary>A publisher is unreachable, moved or returned invalid content.</summary><p>The run remains failed with a visible error and no substitute records. Check again later if it was a transient outage. A changed endpoint needs review in the supported catalog; the collector will not follow an arbitrary redirect automatically.</p></details>
+    <details><summary>An old article disappears when I choose an old knowledge cutoff.</summary><p>Its publication date may be old, but the app first acquired it later. The cutoff deliberately excludes information the app did not possess at that time. Remove the knowledge cutoff to inspect the backfill.</p></details>
+    <details><summary>A publication date says Not recorded.</summary><p>The source may omit a date or supply one without a usable timezone. The app preserves uncertainty rather than guessing. Use the source link and retained metadata to investigate; first-seen time remains a different fact.</p></details>
+    <details><summary>I changed a strategy form but the result stayed the same.</summary><p>Results belong to saved versions. Save the new version, confirm the selected workbench subject, and run it. The Saved runs selector can still point to an earlier result, whose label and input hash identify it.</p></details>
+    <details><summary>A local proposal expired or reports Account changed.</summary><p>Its short approval window or saved account revision is no longer valid. Create a fresh proposal and review its current exact payload. Reusing the old approval is deliberately rejected.</p></details>
+    <details><summary>The budget is blocked although the confirmed total is below EUR 20.</summary><p>Estimated expenses, current commitments, unresolved earlier-month holds or unknown charges can consume the allowance. Inspect the other totals and record history. Resolve uncertain billing using its evidence; do not assume it was free.</p></details>
+    <details><summary>The interface still looks like an older version.</summary><p>Refresh the browser after the latest production build. If backend behavior changed, stop and start the managed server. Preserve the existing database and configuration; reinstalling or deleting them is not the first troubleshooting step.</p></details>
+    <details><summary>The app is unavailable after I close everything.</summary><p>Confirm the managed server is running with the start command in section 1. The server must run for local collection; a powered-off computer cannot gather updates. Read the server logs if startup fails, and retain the error message for diagnosis.</p></details>
+  </section>
+
+  <section id="glossary">
+    <span class="section-number">16 / GLOSSARY</span><h2>Words that have a precise meaning here</h2>
+    <div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning in AiTrader</th></tr></thead><tbody>
+      <tr><td>Domain</td><td>A saved research topic or exposure, such as NVIDIA, Amazon, energy, macroeconomics or geopolitics. It is not an internet domain name or trading permission.</td></tr>
+      <tr><td>Source</td><td>A publisher/feed configuration or an attributed manual publication. A source can inform several domains.</td></tr>
+      <tr><td>Document / revision</td><td>A stored publication identity and one preserved version of its content, dates and attribution.</td></tr>
+      <tr><td>Event</td><td>A real-world development discussed by evidence. A source document is not automatically a verified event; the original demo event cards are synthetic examples.</td></tr>
+      <tr><td>Backfill</td><td>Importing older publications now. It adds historical context without pretending that the app observed it in the past.</td></tr>
+      <tr><td>Snapshot</td><td>The exact inputs or configuration captured for an operation, retained so later edits do not silently change its meaning.</td></tr>
+      <tr><td>Idempotency</td><td>Repeating the same identified operation returns its recorded outcome instead of applying its effects twice. A changed request under the same identifier is rejected.</td></tr>
+      <tr><td>Reservation</td><td>Allowance held against a potential operating charge. It affects available budget but is not automatically an incurred expense.</td></tr>
+      <tr><td>Realized / unrealized P&amp;L</td><td>Gains or losses booked by closing positions versus changes in the marked value of positions still held. Current trading results are fictional.</td></tr>
+      <tr><td>Reasoning effort / temperature</td><td>Different future model controls: reasoning effort guides deliberation; temperature affects sampling variability when the model supports it. Neither is an assurance that an answer is correct.</td></tr>
+    </tbody></table></div>
+    <a class="back" href="#top">Back to contents</a>
+  </section>
+  </main>
+  <footer><p>AiTrader local user guide • FB-2026-10-27-06-C86 • Last updated 27 October 2026.</p><p>This guide describes implemented behavior and identifies unfinished features. For development scope and verification evidence, consult the repository’s implementation status, TODO, progress log and validation report. Browser-native controls may follow your operating-system language; authored application text and notes are English.</p></footer>
+</div>
+</body>
+</html>

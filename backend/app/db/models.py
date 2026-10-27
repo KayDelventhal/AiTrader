@@ -1,4 +1,4 @@
-from sqlalchemy import String, Text, Integer, JSON, ForeignKey, UniqueConstraint
+from sqlalchemy import String, Text, Integer, Boolean, JSON, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from app.core.security import iso_now
 
@@ -203,3 +203,86 @@ class RecurringCost(Base):
     stop_event_key: Mapped[str | None] = mapped_column(String(120), nullable=True)
     stop_request_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     created_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+
+
+class GatheringSettings(Base):
+    __tablename__ = "gathering_settings"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class ResearchDomain(Base):
+    __tablename__ = "research_domains"
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), unique=True)
+    description: Mapped[str] = mapped_column(Text)
+    keywords: Mapped[list] = mapped_column(JSON)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    created_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+    updated_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+
+
+class GatheringSource(Base):
+    __tablename__ = "gathering_sources"
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    catalog_key: Mapped[str] = mapped_column(String(80), unique=True)
+    domain_ids: Mapped[list] = mapped_column(JSON)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=False)
+    interval_minutes: Mapped[int] = mapped_column(Integer, default=60)
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    next_due_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    last_checked_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    last_success_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    last_error: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    active_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    created_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+    updated_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+
+
+class GatheringRun(Base):
+    __tablename__ = "gathering_runs"
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    source_id: Mapped[str] = mapped_column(ForeignKey("gathering_sources.id"))
+    trigger: Mapped[str] = mapped_column(String(20))
+    status: Mapped[str] = mapped_column(String(20), default="QUEUED")
+    requested_by: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+    started_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    completed_at: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    counts: Mapped[dict] = mapped_column(JSON, default=dict)
+    result_metadata: Mapped[dict] = mapped_column(JSON, default=dict)
+    error: Mapped[str | None] = mapped_column(String(300), nullable=True)
+
+
+class ResearchDocument(Base):
+    __tablename__ = "research_documents"
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    identity_key: Mapped[str] = mapped_column(String(64), unique=True)
+    source_id: Mapped[str | None] = mapped_column(ForeignKey("gathering_sources.id"), nullable=True)
+    source_kind: Mapped[str] = mapped_column(String(20))
+    first_seen_at: Mapped[str] = mapped_column(String(40))
+    latest_revision: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class ResearchDocumentRevision(Base):
+    __tablename__ = "research_document_revisions"
+    __table_args__ = (UniqueConstraint("document_id", "revision"),)
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    document_id: Mapped[str] = mapped_column(ForeignKey("research_documents.id"), index=True)
+    revision: Mapped[int] = mapped_column(Integer)
+    recorded_at: Mapped[str] = mapped_column(String(40))
+    available_at: Mapped[str] = mapped_column(String(40), index=True)
+    content_hash: Mapped[str] = mapped_column(String(64))
+    payload: Mapped[dict] = mapped_column(JSON)
+
+
+class GatheringImport(Base):
+    __tablename__ = "gathering_imports"
+    idempotency_key: Mapped[str] = mapped_column(String(120), primary_key=True)
+    request_hash: Mapped[str] = mapped_column(String(64))
+    actor_id: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[str] = mapped_column(String(40), default=iso_now)
+    result: Mapped[dict] = mapped_column(JSON)

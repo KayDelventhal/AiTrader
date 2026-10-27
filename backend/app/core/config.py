@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     app_mode: str = "DEMO"
     database_url: str = ""
     external_requests_enabled: bool = False
+    # A narrow public-feed capability; actual collection also requires persisted
+    # owner activation and an enabled source from the fixed feed catalog.
+    public_feed_requests_allowed: bool = True
     live_enabled: bool = False
     demo_owner_password: str = "local-demo-owner"
     demo_partner_password: str = "local-demo-partner"

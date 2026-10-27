@@ -1,6 +1,26 @@
 # Validation report — 2026-10-27
 
-## Current run: FB-2026-10-27-04-C86
+## Current run: FB-2026-10-27-06-C86
+
+- Final backend regression: **192 tests passed**, **96% statement coverage**, including three added terminal-write recovery cases. The initial `scripts/manage.py test` also passed **6 frontend unit tests**, generated OpenAPI/TypeScript drift checking, TypeScript compilation and the production build. Evidence: `artifacts/fb06-backend-final.log` and `artifacts/fb06-test.log`.
+- Gathering checks cover bounded RSS/Atom/XML handling, disabled networking, catalog-only fetches, unsafe URLs/entities, redirects/compression/size/time limits, missing dates, owner/CSRF restrictions, optimistic revisions, duplicate claims, concurrent requests, interrupted runs, cooldowns, paused domains and transient queued-claim retry. Fixtures make no public requests.
+- History tests cover immutable revisions, changed/reverted content, exact/date-only/unknown publication precision, future timestamps, idempotent imports, original observation times, latest-eligible-revision filtering before content/domain searches, pagination, history exports and cutoff isolation. The starter import schema-validates the complete input before writes and can be retried without duplicate records; database conflicts are checked per record.
+- The standalone guide has no external assets or scripts. Its 17 unique section anchors and 20 internal links were checked; desktop, 390-pixel mobile and print layouts were reviewed. A focused guide API test passed after the same-origin framing header was added; all other app routes retain their framing restriction.
+- Read-only live probes returned HTTP 200 for all six reviewed catalog feeds. The parser returned bounded items without skips or truncation. These probes used public feed URLs without provider credentials or linked-article fetching. Evidence: `.runtime/gathering-feed-probes.json`.
+- Upgraded a backup of the actual workspace before applying migration `0003`: **all 18 pre-existing application tables preserved**; repeated migration/seed left the upgraded dump unchanged; integrity and foreign keys passed. Repeated curated imports produced four records. A separate restore with populated source history matched **all 26 tables including Alembic metadata**. Evidence: `artifacts/fb06-upgrade-result.json`.
+- Before activation, read-only comparison against the original backup confirmed that isolated tests preserved the entire interactive database, `.env`, `.python-version` and the absent preview PID file. The real database upgrade then preserved all 18 existing application tables and **10 saved jobs**. Evidence: `artifacts/fb06-preservation-result.json` and `artifacts/fb06-live-migration.json`.
+- Configured five hourly sources for the user's four selected domains and imported four clearly labelled historical paraphrases. The first live cycle succeeded for every source and stored **90 RSS documents**, giving **94 total documents**. These are source excerpts and curated records, not generated event analysis or price data. No paid calls or broker orders were made.
+- Reviewed the populated desktop/mobile library, collection setup/run log and embedded help. Restarted the preview after the recovery fix and checked health, integrity, unchanged protected files, 94 persisted documents, 10 saved jobs and zero cost entries. Only the managed preview process tree remains running; isolated test servers are stopped. Evidence: `artifacts/fb06-final-runtime.json`, `gathering-live-*.png` and `help-guide-desktop.png`.
+
+Final isolated Edge acceptance passed **all three workflows**: operating costs, gathering/help and the existing chart/research/backtest/approval path. The gathering workflow verifies domain/source persistence, paused-domain controls, timestamp/date-only imports, duplicate requests, corrections, historical cutoffs, exports, mobile overflow/form reachability, the embedded help's contents links, HTML download and read-only partner access. There were no page errors or external browser requests. The owned test server stopped. Evidence: `artifacts/fb06-e2e-pass.log`.
+
+Early browser attempts exposed overly exact accessible-label locators in the new date/domain fields; the locators were corrected without weakening the behavioral assertions. The existing single-bundle advisory remains (about 689 kB minified JavaScript); it is not a build failure.
+
+Independent review reproduced a recovery gap when both result persistence and failure persistence failed temporarily. The worker now retries only the terminal-status write after its original task finishes, including when network permission is off, and once on shutdown. Three new regressions verify that recovery never fetches twice and preserves an already committed success. All 18 worker tests and the final 192-test backend suite passed. Documentation links and `git diff --check` passed.
+
+Real US/European equity prices, OpenAI role/model/temperature/reasoning controls, analyst/critic assessments, automatic paid-usage accounting and semantic event synthesis remain pending. The app's collector runs only while the local application is running. Public source collection is not evidence of complete news coverage or strictly blind historical training.
+
+## Previous implementation: FB-2026-10-27-04-C86
 
 - `scripts/manage.py test`: **102 backend tests passed**, **96% statement coverage**, **6 frontend unit tests passed**. OpenAPI/generated-TypeScript drift check, TypeScript compilation and production build passed. Evidence: `artifacts/fb04-test.log`.
 - Independent ledger coverage includes exact micro-EUR and FX rounding, month rollover in Europe/Berlin, concurrent reservation admission, lower-budget races, unknown-cost blocking, retained estimate bounds, idempotent reconciliation, recurring materialization/stop behavior, restart persistence, owner/CSRF restrictions and private run attribution.
@@ -60,19 +80,19 @@ The final full backend run emitted an Alembic path-separator deprecation warning
 | IDs | Current evidence and limit |
 | --- | --- |
 | A01–A03 | Local preview startup, full browser workflow, user/account/job/annotation isolation tested. Full Compose stack not verified |
-| A04–A11 | Fixture OHLC quality and server cutoff tests; real feed failure handling, true ingestion dedupe, event correction/revision propagation, document injection and Chroma permission retrieval remain pending |
+| A04–A11 | Fixture OHLC quality, server cutoffs, bounded public-feed failures, source identity/deduplication, immutable corrections and known-at revision filtering tested. Real equity-feed handling, synthesized event correction propagation, LLM document-injection controls and Chroma permission retrieval remain pending |
 | A12–A16 | Independent SMA/EMA/Wilder RSI/MACD/ATR reference values, exact EUR 1,018 ledger example, future-input isolation, next-bar fills, adverse costs and immutable versions tested. Trade/valuation FX is not implemented; operating-cost FX records are implemented |
-| A17 | Bars, indicators, evidence and annotations respect cutoff. Account/position replay is explicitly unavailable |
+| A17 | Bars, indicators, fixture evidence, annotations and public-source revisions respect their cutoffs. Backfills do not invent earlier app knowledge. Account/position replay is explicitly unavailable |
 | A18–A20 | Concurrent approval conflict, cash/whole-share/position constraints, hash tamper, expiry, account revision, ownership and duplicate approval tested. Real price freshness and exchange sessions not implemented |
 | A21–A22 | External timeout/reconciliation, partial fills, cancellation races and durable outbox pending |
 | A23 | Kill switch blocks new fills and preserves positions, tested in API and browser |
-| A24–A28 | LPPLS construction only; local atomic budget reservations are tested, but provider usage integration, diagnostics, distributed recovery, schedules/cooldowns and external delivery remain pending. Research jobs execute outside request handlers and persist local notices |
+| A24–A28 | LPPLS construction only; local atomic budget reservations and the bounded public-feed scheduler/cooldown/recovery are tested. Paid-provider usage integration, diagnostics, distributed recovery, scheduled LLM analysis and external delivery remain pending. Research jobs execute outside request handlers and persist local notices |
 | A29 | SQLite backup/restore tested. PostgreSQL restore/Chroma rebuild pending |
-| A30 | Status reports unavailable services and disabled external trading; no external provider verification claimed |
+| A30 | Status distinguishes public collection from unimplemented paid models/price feeds and disabled external trading. Six public RSS endpoints were probed; no authenticated provider verification is claimed |
 | A31 | Limit/stop/gap pricing helper tested; full lifecycle/queue/intrabar ambiguity integration remains pending |
 
 ## Not verified
 
-Docker build/start, Linux dependency resolution, PostgreSQL concurrency, Redis/Celery, production Chroma retrieval, full LPPLS fitting, any real provider or broker. No real orders were placed. No model calls were made. Package compatibility probes are not evidence of completed service integrations.
+Docker build/start, Linux dependency resolution, PostgreSQL concurrency, Redis/Celery, production Chroma retrieval, full LPPLS fitting, authenticated market-data or paid-model providers, and brokers remain unverified. Public RSS gathering was exercised against real catalog endpoints as recorded above. No real orders were placed. No model calls were made. Package compatibility probes are not evidence of completed service integrations.
 
 Screenshots: `artifacts/overview-desktop.png`, `terminal-desktop.png`, `research-desktop.png`, `portfolio-desktop.png`, `overview-laptop.png`, `overview-mobile.png`, `research-mobile.png`, `approval-mobile.png`. Playwright report: `frontend/playwright-report/` (ignored).

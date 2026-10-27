@@ -1,5 +1,21 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-06-C86
+
+- Implemented domain/source configuration and a persistent source library so public-feed collection can begin before paid LLM integration.
+- User selected Nvidia, Amazon, Macroeconomics and Geopolitics as initial editable domains. Public source collection remains separate from fictional market data and model interpretation.
+- Added immutable source revisions, original publication versus observation times, collection history, bounded local scheduling and explicit historical imports. Existing FB05 requirements and all user configuration are preserved.
+- Added detailed English in-app help and a standalone, self-contained HTML guide explaining tabs, controls, stored data, processes and limitations. Added a four-record curated historical import with publication-time precision and current observation timestamps.
+- Final validation: **192 backend tests passed with 96% coverage**, six frontend unit tests, generated-type checks and the production build passed. **All three isolated browser workflows passed**, covering existing trading/cost workflows plus gathering, history, exports, date precision, cutoffs, partner permissions, mobile forms and offline Help. There were no page errors or external browser requests. Evidence: `artifacts/fb06-backend-final.log`, `fb06-test.log` and `fb06-e2e-pass.log`.
+- Review fixed a database-finalization recovery edge case: failed status writes retry without fetching twice or overwriting committed success. Three regression cases cover this behavior. Two overly exact browser test locators were corrected; final desktop/mobile and actual populated-library screenshots were reviewed. The existing bundle-size advisory remains.
+- Migrated a copy first, verified idempotency and a 26-table populated backup/restore, then upgraded the interactive database. All 18 existing application tables and 10 saved jobs were preserved. Enabled five hourly public feeds; their first live cycle succeeded with 90 RSS records, plus four historical records. Trading records, costs, `.env` and `.python-version` remain unchanged.
+- Restarted the preview with the recovery fix, verified health/integrity and all 94 retained source records, and confirmed only the managed preview process tree remains running. Updated README, guides, architecture/contracts, decisions, status, TODO, operations, validation and next steps. Local documentation links and `git diff --check` passed.
+- Model profiles, real OpenAI analysis/cost metering, semantic event synthesis, real US/European price feeds and advanced chart tools remain unfinished. No paid calls, subscriptions, broker orders, commits or remote publications were created.
+
+Feedback: **FB-2026-10-27-06-C86**\
+Commit-Vorschlag: `feat: add public research gathering and comprehensive help`
+
+
 ## 2026-10-27 - FB-2026-10-27-05-C86 (requirements update)
 
 - User accepted the FB04 UI and asked how to begin real LLM use, with selectable model, temperature and reasoning effort; OpenAI first, other providers later.
