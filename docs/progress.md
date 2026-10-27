@@ -1,5 +1,18 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-05-C86 (requirements update)
+
+- User accepted the FB04 UI and asked how to begin real LLM use, with selectable model, temperature and reasoning effort; OpenAI first, other providers later.
+- Recorded the user's explicit role split: cheaper domain gathering/triage and premium analysis/critical exchanges. Bound source volume, cadence and review rounds under the shared budget; pause rather than silently downgrade premium work. Preserve original sources and indirect/global evidence through triage.
+- Reviewed existing zero-call fixture research, frozen inputs, API contracts and budget boundaries. Recorded a first manual real-source analyst/critic workflow, persisted assessment history, role-specific profiles and immutable effective run settings.
+- Checked official OpenAI documentation: Astra supports low/medium/high/xhigh/max reasoning effort, but not custom temperature. Recorded model-specific parameter validation, per-run limits, usage accounting and future capability checks.
+- Updated product decisions, TODO, implementation status and next steps. This is a requirements update only: no application behavior, secrets, database or provider activation changed; no paid model calls made.
+- Validation: reviewed the documentation diff and linked official sources; `git diff --check` passed. Application tests were not rerun because only Markdown requirements changed. Runtime validation cases are recorded for implementation.
+
+Feedback: **FB-2026-10-27-05-C86**\
+Commit-Vorschlag: `docs: define configurable OpenAI analysis and reasoning controls`
+
+
 ## 2026-10-27 - FB-2026-10-27-04-C86
 
 - Delivered owner-managed workspace planning defaults for US and European equities, a configurable days-to-weeks starting horizon and EUR 20 monthly operating ceiling. Changes create settings history; saved strategies and runs retain their original horizons and inputs. Legacy horizons remain unspecified.

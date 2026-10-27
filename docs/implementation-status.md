@@ -31,6 +31,7 @@ Locally running at http://127.0.0.1:8000. The full integration prompt is **not c
 | Shared operating-cost ledger | Implemented locally | Decimal accounting, Berlin calendar months, manual AI/search/news/market-data expenses, dated FX, immutable revision history, optional run/strategy attribution, category/provider breakdown and JSON export |
 | Budget admission and commitments | Implemented locally; provider wiring pending | Atomic bounded reservations, idempotent reconciliation, unknown-cost blocking, explicit budget revisions and recurring EUR commitments with unresolved carryover. Stopping a commitment prevents future local renewals; it does not cancel a provider subscription |
 | Operating costs versus trading results | Implemented for local demo | Separate realized/unrealized fictional P&L; illustrative net subtracts the full shared confirmed and estimated expenses once. Commitments remain separate; missing costs suppress the net result. Live and historical-backtest operating-cost comparison remain pending |
+| OpenAI model profiles and real LLM analysis | Specified, not implemented | FB05 records selectable model, supported temperature/reasoning settings and a bounded analyst/critic workflow; current research still makes zero model calls |
 | Live execution | Disabled | No order submission path; startup rejects LIVE |
 | LEAN / IBKR / SMARTBROKER+ / Nautilus | Optional boundary | No unverified engine/broker represented as functional |
 

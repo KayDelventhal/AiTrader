@@ -26,6 +26,9 @@
 - [ ] Add full market/limit/stop order lifecycle and simulation-run ledger replay.
 
 ## P2–P5 — Full integration brief
+- [ ] Add OpenAI model profiles with capability-aware temperature/reasoning controls, future provider boundary, immutable run settings and per-run limits.
+- [ ] Route domain triage to cheaper models and substantive analyst/critic exchanges to user-selected premium models; cap rounds and preserve source access without silent budget-driven model downgrades.
+- [ ] Deliver manual real-source analysis plus critical review, persisted evidence/assessment history and budget-linked usage before scheduled LLM research.
 - [ ] Complete chart drawing primitives and context validation.
 - [ ] LPPLS diagnostics and bounded background jobs.
 - [ ] Chroma retrieval and PostgreSQL checkpoints.
