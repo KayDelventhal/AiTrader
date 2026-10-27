@@ -1,6 +1,15 @@
 # Validation report — 2026-10-27
 
-## Current run: FB-2026-10-27-06-C86
+## Current review: FB-2026-10-27-07-C86
+
+Documentation and Help clarification only; no runtime code or data migrations. Reviewed current watchlist deletion semantics, single-family strategy execution, feed collection and domain controls against source code. Focus / On hold, adaptive research links and grey-rhino trigger rules remain specified future work.
+
+- Existing guide API test: **1 passed**, 16 unrelated tests deselected. Evidence: `artifacts/fb07-guide-test.log`.
+- Local links in **19 Markdown files** passed. HTML review found **17 unique IDs and 20 valid internal links** with no duplicate IDs or missing targets.
+- Live standalone guide returned HTTP 200 with the updated FB07 text. Playwright checked desktop and 390-pixel mobile layouts, new FAQ interactions, print styling and no horizontal overflow; no page errors or external requests. Screenshots were visually reviewed. Evidence: `artifacts/fb07-help-browser.json`, `fb07-help-*.png`.
+- `git diff --check` passed. The shared HTML file serves both in-app Help and the offline download, so no frontend build or server restart was required. The full application suite was not rerun for prose-only changes; the most recent runtime results are below.
+
+## Latest implementation: FB-2026-10-27-06-C86
 
 - Final backend regression: **192 tests passed**, **96% statement coverage**, including three added terminal-write recovery cases. The initial `scripts/manage.py test` also passed **6 frontend unit tests**, generated OpenAPI/TypeScript drift checking, TypeScript compilation and the production build. Evidence: `artifacts/fb06-backend-final.log` and `artifacts/fb06-test.log`.
 - Gathering checks cover bounded RSS/Atom/XML handling, disabled networking, catalog-only fetches, unsafe URLs/entities, redirects/compression/size/time limits, missing dates, owner/CSRF restrictions, optimistic revisions, duplicate claims, concurrent requests, interrupted runs, cooldowns, paused domains and transient queued-claim retry. Fixtures make no public requests.

@@ -80,6 +80,46 @@ The user requested editable research domains, immediate collection and later his
 
 This delivery gathers source material; it does not yet infer market impact, synthesize events or run an LLM. Model controls, cheaper triage, premium analyst/critic roles, assessment history and automatic cost metering remain the next analysis milestone.
 
+## Focus, adaptive research and risk triggers (FB-2026-10-27-07-C86)
+
+The user clarified after FB06 that instruments leaving current focus must remain **On hold**, research must follow the current interests without discarding prior knowledge, and Help must always stay current. This section records requirements and proposed defaults; it does not claim these features are implemented.
+
+### Instrument focus and retained knowledge
+
+- Replace the personal watchlist toggle's deletion of membership with persistent **Focus / On hold** states, explicit activation/reactivation and append-only change history. Preserve stable instrument/listing identity, research links, prices, notes, strategies and run inputs. Do not infer membership history for earlier deletions that was never recorded.
+- Focus is a research/attention setting, separate from held positions, open simulation orders and trading permission. Putting an instrument on hold must not sell it, cancel a position or grant/withdraw execution permission implicitly. Existing holdings remain visible for monitoring regardless of watchlist focus.
+- Proposed default: Focus receives prioritized company research; On hold retains all history and remains eligible for relevant shared/global risk notices, while optional company-specific paid analysis is paused. Make any additional low-frequency collection and its cost visible. Never silently reactivate a held interest or raise its spending limits because of an alert.
+- Keep the distinction between per-user focus and shared research domains. A personal focus change must not disable a domain/source still used by another member, another active instrument, a holding or a pinned global theme. Retrieve shared sources once; do not duplicate research costs across users/instruments.
+- Historical source revisions retain their original tags and knowledge cutoffs. New links from old evidence to new interests must be stored as dated interpretations, not edits that pretend the link was known earlier. Retain sources, prior assessments, counterarguments and unresolved questions; retrieve relevant prior history instead of passing the entire archive to every model call.
+
+### Adaptive scope and broader collection
+
+- Adding a real listing should create or reuse a company/entity research domain and propose relevant sector, commodity, region, supplier and policy links. Company and listing identity must avoid duplicate domains across tickers/exchanges and distinguish name collisions. Direct company-domain linking may be automatic within an explicit workspace setting; inferred exposure links remain attributed suggestions until reviewed or covered by a visible policy.
+- New domains alone do not establish source coverage. Show which enabled feeds/search plans cover the interest and where coverage is missing. New paid providers, subscriptions or increased budgets must not activate implicitly.
+- Combine three scopes: focused company evidence; linked sectors and dependencies; persistent broad macroeconomic/geopolitical monitoring. Broad monitoring should survive watchlist changes and retain material that mentions no watched company. More sources and repeated copies do not automatically mean better evidence.
+- Proposed collection settings: source/provider, enabled state, domains, query terms/aliases, countries/languages, cadence, depth/time window, retention, request/document caps and cost allocation. Distinguish live retrieval queries, saved-library text search, cheap relevance triage and premium analysis. FB06 currently implements only catalog feeds, assignments, intervals and saved-library filters; keyword metadata does not query the web.
+- Preserve source provenance and availability times, cluster copies before counting independent support, and retain uncertain/high-impact evidence. Record why evidence was prioritized, deprioritized or linked indirectly. Broader collection cannot guarantee that every relevant development is found; show gaps, stale sources and limited archive coverage.
+
+### Risk hypotheses and trigger transitions
+
+A grey rhino is an observable, substantial risk that is insufficiently addressed; it is not itself a precisely timed entry signal. The terminology follows [Michele Wucker's explanation](https://wucker.thegrayrhino.com/writing/the-gray-rhino/). The app currently has no real grey-rhino detector: synthetic event cards and collection-run triggers are not evidence of one.
+
+Proposed design: maintain a persistent risk hypothesis with states such as **Watching, Escalating, Triggered, Easing, Closed**, with dated transitions and reopenings. A trigger is a defined change in evidence or a versioned threshold crossing that warrants review. It is not an automatic trade or proof of future price direction.
+
+Each hypothesis should retain: the risk and exposed entities; supporting source-revision IDs and independent origins; factual observations versus inferred transmission paths; counterevidence and alternate explanations; expected horizon; impact, plausibility and uncertainty assessments; the previous assessment; a measurable escalation condition; invalidation/de-escalation conditions; next review time; and any relevant technical context. Unknown evidence stays unknown. Uncalibrated model scores must not be presented as measured probabilities, and the app must not claim a risk is ignored or unpriced without supporting evidence.
+
+Candidate stages are retrieval, cheap structured triage, event clustering, comparison with the prior hypothesis, premium analysis/critique, and a reasoned state transition. Duplicate articles alone must not escalate a risk. Technical confirmations and contradictions remain visible; a developing risk can deserve attention before a chart confirms it. Versioned rules, cooldowns and material-change notifications prevent repeated alerts for the same evidence. Provider/model controls and cost admission from FB05 remain prerequisites for paid stages.
+
+Example for specification only: a documented electricity-capacity constraint creates a data-centre expansion risk; repeated project delays and a verified exposure link may strengthen it; a specified policy decision or capacity shortfall can satisfy an escalation rule; contrary capacity evidence can weaken it. This is a hypothetical causal chain to test, not an assertion about current Nvidia/Amazon exposure or a validated trading rule.
+
+Acceptance must cover retention/reactivation, shared-domain ownership, duplicate company identity, no surprise paid activation, dated retrospective links, contradictory/retracted evidence, independent-origin counts, transition/cooldown behavior, stale/unknown data and cost limits. Historical evaluation must measure false alerts, missed cases and lead time using only eligible information, alongside the existing warning about modern models' later knowledge.
+
+### Strategies and documentation
+
+The current notebook implements one long-only SMA crossover family; names and hypothesis text do not create algorithms. A later strategy selector should separate genuinely different, versioned rule families and a buy-and-hold comparison. Proposed initial families are trend/crossover, breakout and mean reversion, followed by an explicit research-conditioned variant. Each needs defined entries, exits, position sizing, fees/slippage, benchmark comparison and chronological validation. These are software evaluation choices, not recommendations to trade them.
+
+Keep in-app and downloadable Help synchronized through `docs/user-guide.html` for every behavior change. Explain current limits and planned controls separately. The next delivery should establish retained focus and instrument/domain links before connecting paid analyst/critic workflows, while continuing the required US/European price-data integration.
+
 ## Delivery status: FB-2026-10-27-04-C86
 
 The initial recording of these decisions made no paid requests, subscriptions, trades or configuration changes. The subsequent implementation now supplies these local controls:

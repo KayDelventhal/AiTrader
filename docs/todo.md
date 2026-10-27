@@ -27,6 +27,12 @@
 - [ ] Add full market/limit/stop order lifecycle and simulation-run ledger replay.
 
 ## P2–P5 — Full integration brief
+- [ ] Replace watchlist membership deletion with persistent Focus / On hold states, reactivation and append-only history; preserve held-position monitoring and all stored research.
+- [ ] Link real listings/entities to reusable company domains; propose indirect exposures, show source coverage gaps and preserve shared/global monitoring across personal focus changes.
+- [ ] Add controlled broader retrieval and dated relevance links without rewriting original evidence or activating paid services implicitly.
+- [ ] Define versioned risk hypotheses and escalation/invalidation rules with analyst/critic review, independent-origin evidence, uncertainty, cooldowns and historical evaluation.
+- [ ] Add genuinely different strategy families beyond SMA crossover, with explicit rules and chronological comparisons; hypothesis text is not executable logic.
+- [x] Record the FB07 focus/adaptive-research requirements and clarify current limitations in Help; make guide maintenance a standing project instruction.
 - [x] Add owner-managed research domains with Nvidia, Amazon, Macroeconomics and Geopolitics defaults; keep source assignments distinct from trading eligibility.
 - [x] Add a reviewed public-feed catalog, explicit process/workspace/source/domain gates, configurable intervals and manual collection.
 - [x] Preserve source excerpts, publisher links/raw date fields and immutable revisions; report duplicates, changed content and failed retrieval honestly.

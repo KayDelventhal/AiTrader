@@ -1,5 +1,17 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-07-C86 (requirements and Help clarification)
+
+- Reviewed the user's FB06 questions against the implementation. Current watchlist stars add/delete only personal membership for fictional instruments; there is no On hold state or real ticker addition. Gathering polls configured catalog feeds, domain keywords do not search the web, and watchlist changes do not adapt research scope. The notebook runs one SMA-crossover family; no real grey-rhino detector is implemented.
+- Recorded required persistent Focus / On hold membership and retained history, plus proposed defaults for prioritized versus held interests. Specified instrument/entity/domain links, shared/global coverage protection, visible coverage gaps and dated interpretations of older evidence. Scope changes must not delete prior research or implicitly activate paid services.
+- Recorded a proposed risk-hypothesis lifecycle with evidence-linked escalation/invalidation conditions, uncertainty, independent-source handling, critical review and alert cooldowns. Distinguished a developing grey-rhino risk from a trigger for review and from a trade signal. Checked the concept against the author's primary explanation.
+- Recorded genuinely different strategy families as future work and reordered next steps to establish the focus/domain foundation before paid analysis. Updated status, TODO and product decisions. Added mandatory ongoing in-app/HTML Help maintenance to AGENTS.md.
+- Updated the shared HTML guide with exact watchlist/domain instructions and clear limits for search, automatic domains, strategy logic and risk triggers. No application code, user configuration or database settings were changed; no paid calls or trades were made.
+- Validation: focused guide API test passed; all 19 Markdown files passed local-link validation; `git diff --check` passed. The live guide returned HTTP 200 with FB07 text. Browser review passed 17 unique IDs/20 internal links, desktop/mobile layouts, FAQ interactions and print styling with no page errors or external requests. Evidence: `artifacts/fb07-guide-test.log`, `fb07-doc-links.json`, `fb07-help-browser.json` and `fb07-help-*.png`. The full runtime suite was not rerun for this documentation-only change; FB06 runtime results remain separately recorded.
+
+Feedback: **FB-2026-10-27-07-C86**\
+Commit-Vorschlag: `docs: define retained watchlists and adaptive research workflows`
+
 ## 2026-10-27 - FB-2026-10-27-06-C86
 
 - Implemented domain/source configuration and a persistent source library so public-feed collection can begin before paid LLM integration.

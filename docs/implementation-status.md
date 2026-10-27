@@ -4,6 +4,8 @@
 
 Feedback **FB-2026-10-27-06-C86** adds editable research domains, public-feed configuration and collection, immutable source revisions, historical imports, a filtered source timeline and an HTML/in-app user guide. The FB04 configuration and cost controls remain in place. Real equity-price feeds and paid LLM integration remain pending.
 
+**FB-2026-10-27-07-C86** is a requirements/help clarification only. Persistent Focus / On hold membership, instrument-driven research domains, broader adaptive search, real risk-trigger detection and multiple strategy families are specified next steps, not implemented features. See `product-decisions.md`.
+
 Local preview address: http://127.0.0.1:8000. The full integration prompt is **not complete**. This is a functional local prototype with substantial remaining P1–P5 scope.
 
 | Area | Status | Evidence / limitations |
@@ -13,7 +15,8 @@ Local preview address: http://127.0.0.1:8000. The full integration prompt is **n
 | Two users, sessions, CSRF, account authorization | Locally verified | Hashed passwords; API ownership and CSRF tests; loopback-only demo |
 | SQLAlchemy, Alembic, seed | Locally verified for SQLite | Persistent data; explicit initial migration; PostgreSQL unverified |
 | Charts, watchlists, indicators, daily replay, horizontal levels | Locally verified | Replay filters server-side; advanced drawings and ledger replay pending |
-| Strategy versions and vectorbt | Locally verified | Actual engine, submission-time frozen bars/spec, integrity-checked inputs, saved run selection and exports; no walk-forward yet |
+| Strategy versions and vectorbt | Locally verified | One long-only SMA crossover family, actual engine, frozen bars/spec, saved run selection and exports. Hypothesis text/horizon are metadata; other families and walk-forward remain pending |
+| Watchlist focus lifecycle | Pending | Current star adds/removes only personal membership for fictional instruments. It preserves the instrument/research but has no On hold state or membership history; arbitrary real ticker addition is unavailable |
 | Event viewer and fixture LangGraph | Locally verified | Evidence IDs, causal steps, counterarguments, available-time filter, persisted reports |
 | Local approval and Decimal ledger | Locally verified | Exact payload fingerprint, owner, expiry, concurrency, idempotency and kill switch |
 | Background work | Implemented, local-only | Separate bounded numerical and public-feed workers in one application process; frozen job/source inputs, conditional claims and persisted outcomes; no distributed deployment |
