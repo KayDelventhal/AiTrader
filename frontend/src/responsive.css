@@ -1,4 +1,12 @@
 /* Prevent intrinsic table widths from stretching grid tracks on mobile. */
+.run-history { padding: 20px; border-top: 1px solid #24313f; }
+.run-history-heading { display: flex; align-items: start; gap: 10px; color: #91bcb0; margin-bottom: 16px; }
+.run-history-heading p { font-size: 10px; margin-top: 4px; }
+.run-history select { min-width: 0; width: 100%; }
+.run-subject { margin-top: 12px; color: #b0c0d0; font-size: 11px; }
+.run-history-detail { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.run-history-detail > span:not(.badge) { color: #8b9eb3; font-size: 10px; }
+.run-history-detail .button { margin-left: auto; font-size: 10px; }
 .portfolio-layout > div,
 .strategy-results,
 .event-list { min-width: 0; }

@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -16,10 +17,12 @@ class Settings(BaseSettings):
     max_order_eur: int = Field(default=500, ge=1, le=500)
     max_position_eur: int = Field(default=1000, ge=1, le=1000)
     approval_ttl_seconds: int = Field(default=120, ge=1, le=600)
+    runtime_instance_id: str = "local"
 
     def validate_mode(self):
         if self.app_mode != "DEMO" or self.live_enabled:
             raise ValueError("This preview supports DEMO only. External execution is not implemented.")
 
 
-settings = Settings()
+# Test processes explicitly select no dotenv file; never edit the user's .env.
+settings = Settings(_env_file=os.environ.get("AITRADER_ENV_FILE", ROOT / ".env") or None)

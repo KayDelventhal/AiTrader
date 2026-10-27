@@ -1,5 +1,22 @@
 # Validation report — 2026-10-27
 
+## Current run: FB-2026-10-27-02-C86
+
+- `scripts/manage.py test`: **53 backend tests passed**, **97% statement coverage**, **6 frontend tests passed**, generated OpenAPI/TypeScript drift check passed, TypeScript and production build passed.
+- New tests cover submission-time data/spec/evidence freezing despite later changes, canonical input hashes, tamper rejection, owner-only exports, legacy pending-job refusal, zero-time cutoff, concurrent duplicate worker claims, safe validation/SQL/response/unexpected errors, exact loopback origins and public response filtering.
+- `scripts/manage.py e2e`: **three isolated runs passed** in installed Edge, each with its own SQLite file and owned loopback server. The final run additionally verified switching between two different strategy versions, correct result identity, and mobile strategy history without horizontal page overflow.
+- Browser checks covered input JSON download contents, saved history after reload, research history, numerical job completion, approved/rejected local fills, kill switch, desktop/laptop/mobile layouts, no page errors and no external browser requests.
+- Verified all three owned test servers stopped. A before/after fingerprint comparison confirmed the entire interactive database dump, `.env`, `.python-version`, and managed preview PID file remained unchanged during browser testing. Evidence: `artifacts/e2e-preservation-result.json`.
+- Validated all **7 existing saved jobs** against the new discriminated response models without modifying them. They remain readable as legacy runs.
+- Visually reviewed desktop strategy history and mobile strategy/research layouts. Corrected screenshot capture during the mobile navigation transition and explicitly checked the menu finishes closing. Screenshots include `artifacts/strategies-desktop.png`, `strategies-mobile.png`, and `research-mobile.png`.
+- `git diff --check` passed. Production build retains its existing large-bundle advisory (about 631 kB uncompressed JavaScript); no build failure.
+
+No dependency changes were needed. Python 3.12 and SQLite remain the selected runtime. No real-provider authentication, Alpaca data retrieval, model calls, or broker submission were exercised. Both Alpaca credential entries are present; entitlement and credential validity are not verified. Real symbol configuration is pending, documented in `market-data-and-instruments.md`.
+
+Early regression found an old watchlist test expecting an exact two-field-free JSON body; updated it for the new versioned response. Subsequent full suites passed. Frozen input exports use the existing JSON column and do not require a migration. Full dataset manifests, source revision ingestion, distributed recovery and real market-data integration remain incomplete.
+
+## Previous milestone: FB-2026-10-27-01-C86
+
 Feedback bookmark: **FB-2026-10-27-01-C86**.
 
 ## Executed checks

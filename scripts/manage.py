@@ -23,17 +23,18 @@ def command(args, **kwargs):
     subprocess.run(args, check=True, cwd=ROOT, **kwargs)
 
 
-def pnpm(*args):
+def pnpm(*args, environment=None):
+    supplied_env = environment if environment is not None else os.environ
     nodes = sorted((ROOT / ".tools").glob("node-v24*-win-x64"))
     local = ROOT / ".tools" / "node_modules" / "pnpm" / "bin" / "pnpm.cjs"
     if nodes and local.exists():
-        env = {**os.environ, "PATH": str(nodes[-1]) + os.pathsep + os.environ["PATH"]}
+        env = {**supplied_env, "PATH": str(nodes[-1]) + os.pathsep + supplied_env["PATH"]}
         subprocess.run([str(nodes[-1] / "node.exe"), str(local), *args], cwd=ROOT / "frontend", check=True, env=env)
     else:
         executable = shutil.which("pnpm") or shutil.which("pnpm.cmd")
         if not executable:
             raise SystemExit("Install Node 24 LTS and pnpm 10.28.2, or run scripts/bootstrap.ps1.")
-        subprocess.run([executable, *args], cwd=ROOT / "frontend", check=True)
+        subprocess.run([executable, *args], cwd=ROOT / "frontend", check=True, env=dict(supplied_env))
 
 
 def start():
@@ -111,9 +112,11 @@ if __name__ == "__main__":
     elif args.action == "build": pnpm("build")
     elif args.action == "test":
         command([sys.executable, "-m", "pytest", "--cov=app", "--cov-report=term-missing"])
+        command([sys.executable, "scripts/export_openapi.py"])
+        pnpm("exec", "openapi-typescript", "../artifacts/openapi.json", "-o", "src/client/schema.d.ts", "--check")
         pnpm("test")
         pnpm("build")
-    elif args.action == "e2e": pnpm("e2e")
+    elif args.action == "e2e": command([sys.executable, "scripts/e2e.py"])
     elif args.action == "migrate": command([sys.executable, "scripts/migrate.py"])
     elif args.action == "backup": backup(args.paths[0])
     elif args.action == "restore": restore(*args.paths)

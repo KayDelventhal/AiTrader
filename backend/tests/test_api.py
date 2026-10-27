@@ -163,8 +163,8 @@ def test_research_job_and_no_evidence_result(owner):
 
 def test_watchlist_and_notification_state(owner):
     response = owner.post(P + "/watchlists/DEMO_NOVA")
-    assert response.json() == {"watched": False}
-    assert owner.post(P + "/watchlists/DEMO_NOVA").json() == {"watched": True}
+    assert response.json() == {"schema_version": "1", "watched": False}
+    assert owner.post(P + "/watchlists/DEMO_NOVA").json() == {"schema_version": "1", "watched": True}
     assert owner.post(P + "/watchlists/UNKNOWN").status_code == 404
     assert owner.post(P + "/notifications/UNKNOWN/read").status_code == 404
 

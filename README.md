@@ -2,7 +2,7 @@
 
 A private research workbench with a working local demo: charts, evidence, strategy versions, real vectorbt backtests, and explicitly approved fictional fills.
 
-**Current delivery:** first runnable implementation milestone, not completion of the full integration brief. English interface and documentation. No real feeds, paid model requests, or broker orders are enabled.
+**Current delivery:** local Python/SQLite workbench with saved run history and frozen input exports, not completion of the full integration brief. English interface and documentation. No real feeds, paid model requests, or broker orders are enabled. Docker is not required.
 
 ## Open the app
 
@@ -54,7 +54,9 @@ pnpm --dir frontend install --frozen-lockfile
 5. **Portfolio & approvals:** create a proposal, inspect price/fees/fingerprint, explicitly approve or reject, inspect exact cash and positions, use the kill switch, export the journal.
 6. **Settings & status:** inspect actual capabilities and unavailable integrations. No pretend connection controls.
 
-The integration test creates a clearly named **Browser acceptance strategy** and a small fictional position. These are local test artifacts, not real trades.
+Strategy lab and Research now offer **Saved runs** and **Export inputs**. New runs capture inputs at submission and validate their SHA-256 digest before computation. Older runs are labelled **Legacy run** and cannot export inputs that were never captured. The history shows up to the latest 50 jobs for the signed-in user, shared across both job types.
+
+To choose what to observe now, use the Terminal watchlist stars. To choose what to test, use Strategy lab's Instrument field. Both currently use fictional instruments. Real Alpaca observation lists for symbols such as AMZN and NVDA are the next milestone; see [market data and instrument configuration](docs/market-data-and-instruments.md).
 
 ## Verification
 
@@ -64,7 +66,7 @@ The integration test creates a clearly named **Browser acceptance strategy** and
 .\.venv\Scripts\python.exe scripts\manage.py e2e
 ```
 
-Browser acceptance uses installed Microsoft Edge and the running local app. It mutates the demo account: strategy versions, fictional fills, rejected proposals, and audit events. Backend tests use fresh isolated temporary databases. See [validation report](docs/validation-report.md) for exact results and remaining gaps. Screenshots are in ignored `artifacts/`.
+Browser acceptance uses installed Microsoft Edge and starts its own temporary loopback server with a fresh SQLite database. It bypasses the user's `.env`, checks the server's unique test identity, and stops its own process afterward. Test records and logs remain in ignored `.runtime/e2e/<run-id>/`; the interactive workspace is not used. Backend tests also use isolated databases. The test command checks generated API types for drift. See [validation report](docs/validation-report.md) for exact results and remaining gaps. Screenshots are in ignored `artifacts/`.
 
 Frontend development: `pnpm --dir frontend dev` proxies `/api` to the backend. The production preview serves the built assets and API from the same origin. For backend reload, first stop the managed server, then run `.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload`.
 
@@ -79,7 +81,7 @@ Restore always requires a new destination. It never overwrites the running datab
 
 ## Deployment boundaries
 
-`compose.yaml` prepares a PostgreSQL deployment with an internal database and loopback API port. Redis and Chroma are optional infrastructure profiles, not active integrations. Docker is unavailable on this machine, so container build/start and PostgreSQL transaction behavior are **unverified**. Do not treat the local SQLite acceptance as a PostgreSQL or distributed-worker acceptance.
+The selected runtime is the existing Python virtual environment and SQLite. `compose.yaml` remains optional, deferred deployment preparation. Redis and Chroma are not active integrations. Container build/start and PostgreSQL transaction behavior are **unverified**. Do not treat local SQLite acceptance as PostgreSQL or distributed-worker acceptance.
 
 The full remaining scope is tracked in [TODO](docs/todo.md), [implementation status](docs/implementation-status.md), and [next steps](docs/next-steps.md). Project working rules are in [AGENTS.md](AGENTS.md). Progress and feedback bookmarks are in [progress log](docs/progress.md).
 

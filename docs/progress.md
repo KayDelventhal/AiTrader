@@ -1,5 +1,21 @@
 # Progress log
 
+## 2026-10-27 — FB-2026-10-27-02-C86
+
+- User confirmed that the previous visible milestone appears to work; feedback refers to FB-2026-10-27-01-C86.
+- Began from clean commit `9f67d5a`. Preserving the user's working database and `.env`.
+- User explicitly selected the existing Python virtual environment and SQLite. Docker and service migration are deferred; updated AGENTS.md and ADR 0004.
+- Implemented isolated browser-test lifecycle; validated API responses/generated frontend types/stable errors; immutable queued-job inputs and saved-run history/exports.
+- Confirmed Alpaca key/secret entries are present without displaying values. No authenticated provider request, paid call, or order was sent. Researched official feed permissions and recorded real observation lists as the next milestone.
+- Final validation: **53 backend tests passed, 97% statement coverage; 6 frontend tests, generated-type drift check and production build passed**. Three isolated Edge browser runs passed, including distinct strategy versions, reload/history, exported inputs and mobile overflow checks.
+- Confirmed all test servers stopped and the interactive database, `.env`, `.python-version`, and preview PID record stayed unchanged during browser testing. All 7 existing saved jobs pass the new response models. No test trades were added to the user's workspace.
+- Reviewed desktop/mobile screenshots; clarified the selected result's strategy/version and fixed screenshot timing during mobile menu animation. `git diff --check` passed. The existing bundle-size advisory remains.
+- Started the updated local preview at http://127.0.0.1:8000 and verified its versioned health response.
+- Updated README, status, TODO, next steps, validation report, runtime ADR and provider/instrument configuration guide. Full integration scope remains open; read-only Alpaca observation is next.
+
+Feedback: **FB-2026-10-27-02-C86**\
+Commit-Vorschlag: `feat: freeze research inputs and isolate SQLite acceptance workflows`
+
 ## 2026-10-27 — FB-2026-10-27-01-C86
 
 - Read the supplied integration brief and inspected the workspace.

@@ -2,16 +2,17 @@
 
 ## Start here next run
 
-Read `AGENTS.md`, the integration brief, `implementation-status.md`, and `validation-report.md`. Preserve user changes and existing `.env`. The running preview is a starting point, not the finished system.
+Read `AGENTS.md`, the integration brief, `implementation-status.md`, and `validation-report.md`. Preserve user changes, `.env`, and the interactive SQLite database. Continue in the existing Python virtual environment; Docker is deferred by explicit user preference.
 
-1. Complete P0 deployment verification when Docker is available: container build, PostgreSQL migrations and two-transaction concurrency tests. Split development/test dependencies and add Linux lock validation.
-2. Finish the core data contracts: listing identity, SourceDocument/Event revisions, DatasetSnapshot/Parquet manifests, domain/exposure edges, typed response schemas and stable error codes. Wire the generated client to complete request/response contracts.
-3. Implement fixture ingestion and correction/retraction scenarios, Chroma fixture retrieval with canonical authorization/time filtering, and reconstruction tests.
-4. Move persisted jobs to Celery queues and a single Beat scheduler with leases/idempotency, independent quant concurrency, budgets and recording notification outbox. Add Postgres LangGraph checkpoints.
-5. Expand local simulation: market/limit/stop lifecycle, reservations, partial fills, duplicate events, unknown-submit reconciliation, cancellation races, simulation-run ledger replay. Never attach a real broker while these tests are incomplete.
-6. Complete chart context hashes, horizontal/trend/zone/Fibonacci/position primitives, undo ownership and chart-agent context validation.
-7. Finish quantitative evaluation: chronological splits, walk-forward, capped grids, benchmark/cost comparisons, fuller metrics and bounded LPPLS jobs.
-8. Implement mandatory external adapters behind explicit capability and budget gates. Verify current official contracts at that time. Keep real calls and demo execution opt-in; credentials alone are not activation.
-9. Complete P5 operations/security and all remaining acceptance matrix rows. Add CI once the repository is ready for GitHub; no GitHub repository or publication exists yet.
+1. Implement **read-only Alpaca observations and real instrument configuration**. Start with AMZN and NVDA, a user-owned SQLite observation list, Settings connection/feed status, bounded historical imports, and timestamped current observations. Explicitly select IEX, verify current official contracts and credentials without revealing secrets, and test auth/entitlement errors, rate limits, pagination, stale data and no fixture fallback. Separate real USD data from fictional EUR simulation. See `market-data-and-instruments.md`; Audi is a delisted research entity, not a standalone current stock.
+2. Expand listing identity and data provenance to support that integration: provider/exchange/currency identity, immutable imported datasets, adjustment policy, source availability times and revision handling. Frozen job inputs now work, but SourceDocument/Event revision ingestion and DatasetSnapshot/Parquet manifests remain incomplete.
+3. Complete local simulation: market/limit/stop lifecycle, reservations, partial fills, duplicate events, unknown-submit reconciliation, cancellation races and ledger replay. Trading permissions must be explicit and separate from observation lists. Broker submission remains disabled.
+4. Complete chart context hashes, trend/zone/Fibonacci/position primitives, undo ownership and chart-agent context validation.
+5. Finish quantitative evaluation: chronological splits, walk-forward, capped grids, benchmark/cost comparisons, fuller metrics and bounded LPPLS jobs.
+6. Harden the SQLite worker: cancellation, retry policy, budgets, scheduler and notification outbox. Keep a single application process until a tested multi-worker design exists. Full route/request inference and job-history pagination are also pending.
+7. Implement fixture correction/retraction scenarios, retrieval with canonical authorization/time filtering and reconstruction tests. Complete other external adapters behind explicit capability/budget gates. Credentials alone never activate external access or execution.
+8. Finish the acceptance matrix and remaining operations/security work. Add CI when the repository is ready for GitHub; no remote publication is part of this run.
 
-Next feedback bookmark: **FB-2026-10-27-02-C86** if another run occurs on this client date; otherwise use the actual date and increment that day's run number.
+PostgreSQL, Redis/Celery, Chroma services and Linux/Docker verification remain optional future migration work. Revisit only when requested or a concrete requirement makes it useful; local SQLite acceptance is not evidence of distributed-service acceptance.
+
+Next feedback bookmark: **FB-2026-10-27-03-C86** if another run occurs on this date; otherwise use the actual date and increment that day's run number.

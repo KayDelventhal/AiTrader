@@ -1,9 +1,9 @@
 from concurrent.futures import ThreadPoolExecutor
-from sqlalchemy import select
-from app.db.models import Job, Strategy, Instrument, Event, Notification
+from sqlalchemy import select, update
+from app.db.models import Job, Notification
 from app.agents.research import run_research
 from app.quant.backtest import VectorbtResearchAdapter
-from datetime import datetime, timezone
+from app.jobs.snapshots import verified_snapshot
 
 
 class LocalJobRunner:
@@ -26,24 +26,22 @@ class LocalJobRunner:
 
     def run(self, jid):
         with self.sessions() as db:
-            job = db.get(Job, jid)
-            if not job or job.status != "PENDING":
+            claimed = db.execute(update(Job).where(Job.id == jid, Job.status == "PENDING").values(status="RUNNING"))
+            if claimed.rowcount != 1:
+                db.rollback()
                 return
-            job.status = "RUNNING"
             db.commit()
+            job = db.get(Job, jid)
             try:
+                snapshot = verified_snapshot(job)
                 if job.kind == "backtest":
-                    strategy = db.get(Strategy, job.input["strategy_version_id"])
-                    instrument = db.get(Instrument, strategy.spec["instrument_id"])
-                    result = VectorbtResearchAdapter().run(instrument.bars, strategy.spec)
-                    result["strategy_version_id"] = strategy.id
+                    result = VectorbtResearchAdapter().run(snapshot["bars"], snapshot["strategy"])
+                    result["strategy_version_id"] = snapshot["strategy_version_id"]
                 else:
-                    instrument = db.get(Instrument, job.input["instrument_id"])
-                    cutoff = job.input.get("as_of") or instrument.bars[-1]["time"]
-                    events = [{"id": e.id, "title": e.title, **e.payload} for e in db.scalars(select(Event)) if instrument.id in e.payload["instrument_ids"] and datetime.fromisoformat(e.available_at).timestamp() <= cutoff]
-                    result = run_research({"id": instrument.id, "name": instrument.name}, events)
-                    result["as_of"] = cutoff
-                    db.add(Notification(id=f"notice-{jid}", user_id=job.user_id, message=f"Research for {instrument.name} is ready. {len(events)} fictional event(s) reviewed."))
+                    result = run_research(snapshot["instrument"], snapshot["events"])
+                    result["as_of"] = snapshot["as_of"]
+                    db.add(Notification(id=f"notice-{jid}", user_id=job.user_id, message=f"Research for {snapshot['instrument']['name']} is ready. {len(snapshot['events'])} fictional event(s) reviewed."))
+                result["input_hash"] = job.input["snapshot_hash"]
                 job.result, job.status = result, "SUCCEEDED"
             except Exception as exc:
                 # Never return provider exception text or credentials to the browser.

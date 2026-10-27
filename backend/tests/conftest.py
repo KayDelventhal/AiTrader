@@ -1,3 +1,7 @@
+import os
+# Apply before importing application settings. Tests never read the user's dotenv.
+os.environ.update({"AITRADER_ENV_FILE": "", "DATABASE_URL": "sqlite://", "APP_MODE": "DEMO", "LIVE_ENABLED": "false", "DEMO_OWNER_PASSWORD": "local-demo-owner", "DEMO_PARTNER_PASSWORD": "local-demo-partner", "MAX_ORDER_EUR": "500", "MAX_POSITION_EUR": "1000", "APPROVAL_TTL_SECONDS": "120", "LANGSMITH_TRACING": "false"})
+
 import pytest
 from fastapi.testclient import TestClient
 from app.db.models import Base

@@ -9,6 +9,7 @@ from app.core.config import settings
 from app.core.security import utcnow
 from app.db.models import Account, Instrument, Proposal, Audit
 from app.simulation.ledger import money, book_fill
+from app.core.errors import ApiError
 
 
 def digest(payload):
@@ -21,7 +22,7 @@ def create_proposal(db, uid, request):
     if not instrument:
         raise HTTPException(404, "Instrument not found")
     if account.killed:
-        raise HTTPException(409, "Kill switch is active")
+        raise ApiError(409, "EXECUTION_PAUSED", "Kill switch is active")
     reference = instrument.bars[-1]
     price = money(Decimal(str(reference["close"])) * (Decimal("1.0005") if request.side == "BUY" else Decimal("0.9995")))
     fee = money(max(Decimal("1"), price * request.quantity * Decimal("0.001")))
@@ -36,11 +37,11 @@ def create_proposal(db, uid, request):
 
 def _risk(account, payload):
     if account.killed:
-        raise HTTPException(409, "Kill switch is active")
+        raise ApiError(409, "EXECUTION_PAUSED", "Kill switch is active")
     if payload["environment"] != "LOCAL_DEMO" or not payload["instrument_id"].startswith("DEMO_"):
         raise HTTPException(409, "Only fictional local orders are supported")
     if payload["account_revision"] != account.revision:
-        raise HTTPException(409, "Account changed. Create a new proposal.")
+        raise ApiError(409, "ACCOUNT_CHANGED", "Account changed. Create a new proposal.")
     amount = money(payload["price"]) * payload["quantity"]
     if amount + money(payload["fee"]) > settings.max_order_eur:
         raise HTTPException(409, "Demo order limit is EUR 500 including fees")
@@ -58,7 +59,7 @@ def approve(db, uid, pid, supplied_digest):
     if not proposal or proposal.user_id != uid:
         raise HTTPException(404, "Proposal not found")
     if supplied_digest != proposal.digest or digest(proposal.payload) != proposal.digest:
-        raise HTTPException(409, "Approval hash mismatch")
+        raise ApiError(409, "APPROVAL_HASH_MISMATCH", "Approval hash mismatch")
     if proposal.status == "FILLED":
         return proposal  # A repeated approval returns the same completed operation.
     if proposal.status != "AWAITING_APPROVAL":
@@ -66,7 +67,7 @@ def approve(db, uid, pid, supplied_digest):
     if datetime.fromisoformat(proposal.expires_at) <= utcnow():
         proposal.status = "EXPIRED"
         db.commit()
-        raise HTTPException(409, "Approval window expired. Create a new proposal.")
+        raise ApiError(409, "APPROVAL_EXPIRED", "Approval window expired. Create a new proposal.")
     account = db.scalar(select(Account).where(Account.id == proposal.account_id, Account.owner_id == uid).with_for_update())
     if account is None:
         raise HTTPException(404, "Account not found")

@@ -21,3 +21,4 @@ Use the integration brief in `docs/Trading_and_Research_App_Codex_Masterprompt.t
 - Record the same bookmark, scope, and validation result in the progress log. The label `Commit-Vorschlag` is retained because the user explicitly requested it; the subject and all explanatory prose remain English.
 - Suggest commits; do not claim a commit exists unless actually created. Keep GitHub publication separate from local development.
 - Keep project instructions here; do not create a second synonymous instruction file.
+- Current runtime preference (2026-10-27): continue with the existing Python virtual environment and SQLite. Do not install Docker or make PostgreSQL/Redis/Chroma services prerequisites. Keep any future service migration explicitly deferred until requested.
