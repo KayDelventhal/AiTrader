@@ -53,7 +53,7 @@ test('complete demo workflow, responsive views, and no external browser requests
   await expect(page.getByLabel('Inspect a saved run')).not.toHaveValue(firstRun)
   await expect(page.locator('.run-status')).toContainText('SUCCEEDED', { timeout: 120000 })
   await page.getByLabel('Inspect a saved run').selectOption(firstRun)
-  await expect(page.locator('.run-subject')).toHaveText('Selected result: Browser acceptance strategy · v2')
+  await expect(page.getByText('Selected result: Browser acceptance strategy · v2', { exact: true })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Execution journal' })).toBeVisible()
   await page.reload()
   await expect(page.getByLabel('Inspect a saved run').locator('option')).toHaveCount(2)

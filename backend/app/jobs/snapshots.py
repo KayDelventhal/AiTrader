@@ -8,6 +8,7 @@ from app.core.errors import ApiError
 from app.core.security import iso_now
 from app.db.models import Instrument, Strategy, Event
 from app.marketdata.demo import DATASET_VERSION
+from app.workspace.service import settings_snapshot
 
 
 def canonical_hash(value):
@@ -16,6 +17,7 @@ def canonical_hash(value):
 
 def freeze_input(db, kind, request):
     refs = dict(request)
+    workspace = settings_snapshot(db)
     if kind == "backtest":
         strategy = db.get(Strategy, request["strategy_version_id"])
         if strategy is None:
@@ -23,6 +25,7 @@ def freeze_input(db, kind, request):
         instrument = db.get(Instrument, strategy.spec["instrument_id"])
         payload = {"kind": kind, "dataset": DATASET_VERSION, "strategy_version_id": strategy.id, "strategy": strategy.spec, "instrument": {"id": instrument.id, "name": instrument.name}, "bars": instrument.bars}
         refs["instrument_id"] = instrument.id
+        refs["horizon"] = strategy.spec.get("horizon")
     elif kind == "research":
         instrument = db.get(Instrument, request["instrument_id"])
         if instrument is None:
@@ -33,8 +36,14 @@ def freeze_input(db, kind, request):
         events = [{**e.payload, "id": e.id, "title": e.title, "domain": e.domain, "available_at": e.available_at} for e in db.scalars(select(Event).order_by(Event.available_at, Event.id)) if instrument.id in e.payload["instrument_ids"] and datetime.fromisoformat(e.available_at).timestamp() <= cutoff]
         payload = {"kind": kind, "instrument": {"id": instrument.id, "name": instrument.name}, "events": events, "as_of": cutoff}
         refs["as_of"] = cutoff
+        refs["horizon"] = workspace["horizon"]
     else:
         raise ApiError(422, "UNSUPPORTED_JOB", "Unsupported job type")
+    # Settings belong to this submission only. Legacy strategy horizons remain
+    # unspecified rather than being backfilled from today's workspace default.
+    payload["workspace_settings"] = workspace
+    payload["horizon"] = refs["horizon"]
+    refs["settings_revision"] = workspace["revision"]
     snapshot = copy.deepcopy(payload)
     return {**refs, "snapshot_version": "1", "snapshot_hash": canonical_hash(snapshot), "captured_at": iso_now(), "_snapshot": snapshot}
 

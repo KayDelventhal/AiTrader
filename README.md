@@ -2,7 +2,7 @@
 
 A private research workbench with a working local demo: charts, evidence, strategy versions, real vectorbt backtests, and explicitly approved fictional fills.
 
-**Current delivery:** local Python/SQLite workbench with saved run history and frozen input exports, not completion of the full integration brief. English interface and documentation. No real feeds, paid model requests, or broker orders are enabled. Docker is not required.
+**Current delivery:** local Python/SQLite workbench with saved run history, frozen input exports, configurable workspace defaults and operating-cost accounting. The full integration brief remains unfinished. English interface and documentation. No real feeds, paid model requests, or broker orders are enabled. Docker is not required.
 
 ## Open the app
 
@@ -52,11 +52,23 @@ pnpm --dir frontend install --frozen-lockfile
 3. **Strategy lab:** edit a crossover hypothesis, save immutable versions, run the saved version with vectorbt, inspect equity/trades/cost sensitivity, export JSON. Saving or backtesting does not activate trading.
 4. **Research & events:** inspect three fictional domains, source origins/copies, causal steps, counterarguments, and next checks. Execute a deterministic LangGraph review.
 5. **Portfolio & approvals:** create a proposal, inspect price/fees/fingerprint, explicitly approve or reject, inspect exact cash and positions, use the kill switch, export the journal.
-6. **Settings & status:** inspect actual capabilities and unavailable integrations. No pretend connection controls.
+6. **Settings & status:** configure US/European observation scope, the default holding horizon and shared monthly operating limit; record expenses and recurring commitments; inspect costs, history, budget status and integration capabilities.
 
 Strategy lab and Research now offer **Saved runs** and **Export inputs**. New runs capture inputs at submission and validate their SHA-256 digest before computation. Older runs are labelled **Legacy run** and cannot export inputs that were never captured. The history shows up to the latest 50 jobs for the signed-in user, shared across both job types.
 
 To choose what to observe now, use the Terminal watchlist stars. To choose what to test, use Strategy lab's Instrument field. Both currently use fictional instruments. Real Alpaca observation lists for symbols such as AMZN and NVDA are the next milestone; see [market data and instrument configuration](docs/market-data-and-instruments.md).
+
+## Settings and operating costs
+
+Open **Settings & status** as the owner. The saved defaults are US and European equities, a **days-to-weeks** horizon and a shared **EUR 20 monthly limit**. Changing the horizon affects future strategy saves/research submissions; existing versions and jobs remain unchanged. Each new strategy may also choose its own horizon. A holding horizon does not change the current fictional daily-bar dataset or connect a real feed.
+
+Use **Record expense** for an incurred bill, estimate or unknown charge, and **Add monthly commitment** to track an existing subscription. The latter reserves its expected amount once per month; reconcile each monthly entry with the invoice when known. Stopping future entries does not cancel a provider subscription or erase this month's commitment. Non-EUR bills require a dated EUR conversion basis. Costs can be attributed once to an owned run or strategy; shared costs are not copied across instruments.
+
+The dashboard separates confirmed expenses, estimated expenses, reservations and available budget. Unknown charges block new paid reservations. A late invoice above the limit remains recorded and blocks further reservations. Only an explicit owner edit changes the limit; neither profit nor a model changes it. Partner access is read-only. JSON export includes revisions and pricing/FX references.
+
+The performance panel compares the current user's fictional realized P&L with all shared expenses as a clearly labelled scenario; it never reports live profit. Unrealized P&L and commitments are separate, and already-booked execution costs are not deducted again. Per-run attributed costs appear with saved runs.
+
+**No automatic provider billing import or paid adapter is connected yet.** The ledger and reservation API are implemented; future paid adapters must reserve before calling a provider and reconcile afterward. External account usage, provider billing corrections and subscriptions managed elsewhere cannot be controlled by this local limit. See [operating cost details](docs/cost-accounting.md).
 
 ## Verification
 

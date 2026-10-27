@@ -20,6 +20,7 @@ export type Notice = components['schemas']['NotificationView']
 export type SystemStatus = components['schemas']['SystemStatusView']
 export type User = components['schemas']['UserView']
 export type InputSnapshot = components['schemas']['InputSnapshot']
+export type RunCost = components['schemas']['RunCostView']
 export type ApiProblem = components['schemas']['ErrorResponse']
 export type Spec = Omit<components['schemas']['StrategyDetails'], 'status'> & { status?: 'draft' }
 export type Job = BacktestJob | ResearchJob

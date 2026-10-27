@@ -23,6 +23,7 @@ class StrategySpec(Contract):
     fees_bps: int = Field(default=10, ge=0, le=200)
     slippage_bps: int = Field(default=5, ge=0, le=200)
     strategy_id: str | None = None
+    horizon: Literal["intraday", "days_weeks", "weeks_months"] | None = None
 
     @model_validator(mode="after")
     def ordered(self):

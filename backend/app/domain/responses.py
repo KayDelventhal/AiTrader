@@ -127,6 +127,7 @@ class StrategyDetails(BaseModel):
     fees_bps: int
     slippage_bps: int
     status: Literal["draft"]
+    horizon: Literal["intraday", "days_weeks", "weeks_months"] | None = None
 
 
 class StrategyView(ResponseModel):
@@ -196,6 +197,8 @@ class JobInput(BaseModel):
     as_of: int | None = None
     snapshot_hash: str | None = None
     snapshot_version: Literal["1"] | None = None
+    horizon: Literal["intraday", "days_weeks", "weeks_months"] | None = None
+    settings_revision: int | None = None
 
 
 class JobBase(ResponseModel):

@@ -22,6 +22,9 @@ from app.execution.service import create_proposal, approve
 from app.domain import responses as dto
 from app.core.errors import ApiError, error_response, install_handlers
 from app.jobs.snapshots import freeze_input, verified_snapshot
+from app.workspace.routes import register_routes as register_workspace_routes
+from app.workspace.service import settings_snapshot
+from app.reporting.cost_impact import PerformanceCostView, performance_cost_impact, RunCostView, run_costs
 
 
 def record(obj):
@@ -86,6 +89,15 @@ def create_app(db_engine=None):
         return session
 
     prefix = "/api/v1"
+    register_workspace_routes(app, db_session, identity)
+
+    @app.get(prefix + "/performance/cost-impact", response_model=PerformanceCostView)
+    def cost_impact(month: str | None = None, auth=Depends(identity), db=Depends(db_session)):
+        return performance_cost_impact(db, auth.user_id, month)
+
+    @app.get(prefix + "/jobs/{jid}/costs", response_model=RunCostView)
+    def job_costs(jid: str, auth=Depends(identity), db=Depends(db_session)):
+        return run_costs(db, auth.user_id, jid)
 
     @app.get(prefix + "/health", response_model=dto.Health)
     def health():
@@ -161,6 +173,8 @@ def create_app(db_engine=None):
         if payload.strategy_id and (not previous or previous.author_id != auth.user_id):
             raise HTTPException(403, "Only the author can create another version; save a new strategy instead")
         spec = payload.model_dump(exclude={"strategy_id"})
+        if spec["horizon"] is None:
+            spec["horizon"] = settings_snapshot(db)["horizon"]
         spec["status"] = "draft"
         strategy = Strategy(id=str(uuid.uuid4()), strategy_id=sid, version=previous.version + 1 if previous else 1, author_id=auth.user_id, spec=spec)
         db.add(strategy)

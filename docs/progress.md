@@ -1,5 +1,19 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-04-C86
+
+- Delivered owner-managed workspace planning defaults for US and European equities, a configurable days-to-weeks starting horizon and EUR 20 monthly operating ceiling. Changes create settings history; saved strategies and runs retain their original horizons and inputs. Legacy horizons remain unspecified.
+- Added a Decimal/micro-EUR operating-cost ledger for AI, search/news and market data, original-currency/dated FX records, manual expenses, unknown costs, precise bounded reservations, monthly commitments, idempotent corrections and run/strategy attribution. Concurrent admission, unresolved month carryover and explicit budget changes share the same SQLite lock.
+- Added the visible Settings cost dashboard, provider/category totals, revision amounts, JSON export, recurring controls and private run cost summaries. Demo realized/unrealized P&L is separated from real operating bills; the full-workspace net comparison is explicitly illustrative and unavailable when costs are unknown.
+- Added frozen migration `0002_workspace_costs`; upgraded a copy of the user's database before changing the preview. All 12 existing application tables were preserved and rerunning migration/seed changed nothing. Backup/restore verification now compares every application table read-only; all 19 tables with populated cost history matched, and deliberate cost tampering/missing-file cases were detected.
+- Validation: **102 backend tests passed, 96% statement coverage; 6 frontend unit tests passed; generated-type drift check and production build passed**. Final isolated Edge acceptance passed **both workflows**, including the existing trading/research path, new cost path, changed-default strategy creation, mobile dialog reachability, exports, read-only partner and no external browser requests/page errors. Evidence logs: `artifacts/fb04-test.log` and `artifacts/fb04-e2e-final.log`.
+- Review fixed New strategy inheriting the previous horizon and ensured saving shows the resolved default. An older browser locator was made specific after run metadata made it ambiguous. Desktop/mobile screenshots were reviewed; the existing bundle-size advisory remains.
+- Confirmed all test servers stopped and the interactive database, `.env`, `.python-version` and preview PID record were untouched by isolated tests. Then backed up and upgraded the real preview, preserving all existing rows and 7 saved jobs. The restarted preview is ready at http://127.0.0.1:8000 with no test costs or trades added.
+- Updated README, architecture/contracts, product decisions, operating-cost guide, status, TODO, next steps, operations and validation report. Paid provider activation/billing import, real US/European feeds, full chart tools and longitudinal multi-agent research remain unfinished. No external services or order paths were activated. No commit or remote publication was created.
+
+Feedback: **FB-2026-10-27-04-C86**\
+Commit-Vorschlag: `feat: add workspace budgets and operating cost accounting`
+
 ## 2026-10-27 - FB-2026-10-27-03-C86 (requirements update)
 
 - Recorded the user's confirmed choices: US and European equities from the first real-data version; days-to-weeks starting horizon, changeable for future work; initial EUR 20 monthly operating budget.

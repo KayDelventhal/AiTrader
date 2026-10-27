@@ -1,6 +1,8 @@
 # Implementation status
 
-## Current delivery: reproducible local research runs
+## Current delivery: workspace settings and operating-cost visibility
+
+Feedback **FB-2026-10-27-04-C86** adds persistent planning defaults, a shared local cost ledger and a clearly labelled comparison with fictional trading performance. Real market feeds and paid provider integration remain pending.
 
 Locally running at http://127.0.0.1:8000. The full integration prompt is **not complete**. This is a functional first implementation with substantial remaining P1–P5 scope.
 
@@ -18,13 +20,17 @@ Locally running at http://127.0.0.1:8000. The full integration prompt is **not c
 | Public API response contracts | Locally verified | Validated models, discriminated job results, safe error codes/request IDs, generated TypeScript declarations and drift check |
 | Browser test isolation | Locally verified | Fresh SQLite file and owned loopback process per run; bypasses user dotenv and checks instance identity |
 | Notifications | Implemented, partial | Local notices/read state; true outbox/scheduler policies pending |
-| Backup/restore | Locally verified for SQLite | Separate destination; ten-table and integrity comparison |
+| Backup/restore | Locally verified for SQLite | Separate destination; all 19 tables including cost history match, integrity and foreign keys pass |
 | Python virtual environment / SQLite | Selected runtime | Explicit user preference; local development continues here |
 | Docker/PostgreSQL | Deferred, externally unverified | Optional Compose supplied; no Docker installation required |
 | Redis/Celery/Chroma integration | Deferred service work | Dependency installed/probed does not mean integrated |
 | LPPLS diagnostics | Pending | Construction probe only |
 | Mandatory external adapters | Pending | US and European read-only observations are next; Alpaca credentials present, authentication/entitlements and European provider coverage unverified. Other adapters remain pending |
-| Confirmed product configuration | Specified, runtime pending | US and European equities from first real-data version; changeable days-to-weeks horizon; EUR 20 monthly operating ceiling and cost ledger requirements in `product-decisions.md` |
+| Workspace planning defaults | Implemented locally | Owner-editable US/European scope, configurable horizon starting at days to weeks, and EUR 20 initial monthly ceiling; partner read-only. Scope is a planning setting, not connected market coverage |
+| Historical horizon preservation | Implemented for new work | New strategy versions and research submissions retain their horizon and frozen settings; changing defaults does not rewrite saved runs. Older unspecified horizons remain visibly unspecified; interval support is unchanged |
+| Shared operating-cost ledger | Implemented locally | Decimal accounting, Berlin calendar months, manual AI/search/news/market-data expenses, dated FX, immutable revision history, optional run/strategy attribution, category/provider breakdown and JSON export |
+| Budget admission and commitments | Implemented locally; provider wiring pending | Atomic bounded reservations, idempotent reconciliation, unknown-cost blocking, explicit budget revisions and recurring EUR commitments with unresolved carryover. Stopping a commitment prevents future local renewals; it does not cancel a provider subscription |
+| Operating costs versus trading results | Implemented for local demo | Separate realized/unrealized fictional P&L; illustrative net subtracts the full shared confirmed and estimated expenses once. Commitments remain separate; missing costs suppress the net result. Live and historical-backtest operating-cost comparison remain pending |
 | Live execution | Disabled | No order submission path; startup rejects LIVE |
 | LEAN / IBKR / SMARTBROKER+ / Nautilus | Optional boundary | No unverified engine/broker represented as functional |
 

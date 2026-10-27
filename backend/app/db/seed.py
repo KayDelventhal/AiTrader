@@ -6,6 +6,8 @@ from app.marketdata.demo import generate_bars
 
 
 def seed(db):
+    from app.workspace.service import seed_workspace
+    seed_workspace(db)
     if db.get(User, "owner"):
         return
     for uid, name, password in [("owner", "Alex Morgan", settings.demo_owner_password), ("partner", "Sam Taylor", settings.demo_partner_password)]:

@@ -1,6 +1,6 @@
 # Product decisions and cost accounting
 
-Confirmed on 2026-10-27 after feedback FB-2026-10-27-02-C86. These are implementation requirements, not claims that the controls already exist.
+Confirmed on 2026-10-27 after feedback FB-2026-10-27-02-C86. The requirements below remain the target; the delivery status for FB-2026-10-27-04-C86 distinguishes implemented local controls from pending integrations.
 
 ## Market scope and horizon
 
@@ -49,4 +49,14 @@ Keep live, local-paper and historical-backtest results distinct. AI/data charges
 - Paper gains never appear as live profit, and neither kind automatically changes the budget.
 - UI tests verify budget status, cost breakdown, explicit settings changes and gross/net performance labels. Provider contract tests use redacted fixtures by default.
 
-Runtime implementation is pending. No paid requests, subscriptions, trades or configuration changes were made while recording these decisions.
+## Delivery status: FB-2026-10-27-04-C86
+
+The initial recording of these decisions made no paid requests, subscriptions, trades or configuration changes. The subsequent implementation now supplies these local controls:
+
+- Persistent workspace defaults for US/European scope, a days-to-weeks starting horizon and a EUR 20 initial monthly ceiling. Owners can make explicit revisions; partners can inspect the settings and shared costs. Horizons also support intraday and weeks-to-months planning; selecting them does not add new bar intervals or provider coverage.
+- New strategy versions and research submissions preserve the applicable horizon and settings in saved inputs. Existing runs are not rewritten, and older runs with no recorded horizon remain explicitly unspecified.
+- A shared monthly ledger for manual confirmed, estimated and unknown costs, with Decimal accounting, dated original-currency conversion, pricing references, immutable correction history and idempotency. Expenses can be attributed once to an owned run or strategy version, or remain shared. The dashboard provides provider/category totals, per-run attributed summaries and JSON export.
+- Atomic bounded reservations, admission blocking for unknown or exhausted costs, recurring EUR commitments and unresolved carryover. Reconciliation records an actual bill even if it exceeds the ceiling, then blocks additional admission. A stopped recurring plan retains its current commitment and prevents future local renewals; this is not a provider cancellation or subscription purchase.
+- A selected-month comparison with fictional local-demo trading. Realized P&L and unrealized fixture valuation are separate. The illustrative net subtracts the full shared confirmed and estimated expenses from that account's realized P&L once; reservations are displayed separately. It is a scenario, not a per-user allocation, live profit or proof of AI contribution. Unknown costs or unreconciled demo fills make the net result unavailable.
+
+Real US/European feeds, real instrument configuration, paid-provider activation and automatic usage/billing integration are still pending. The reservation interface has no connected external executor. Matching-period live/paper/backtest cost allocation, advanced chart tools, scheduled longitudinal research and the broader multi-agent analysis workflow also remain unfinished. No paid service, subscription or broker execution is activated by this delivery. See `implementation-status.md`, `next-steps.md` and `validation-report.md` for the current boundaries and verification.

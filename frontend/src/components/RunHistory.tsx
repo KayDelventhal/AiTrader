@@ -1,11 +1,15 @@
 import { Download, Fingerprint } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
 import { useWorkspace } from '../app/context'
-import { api, downloadJson, type Job, type InputSnapshot } from '../client/api'
+import { api, downloadJson, type Job, type InputSnapshot, type RunCost } from '../client/api'
 import { Badge } from './common'
 import { date } from '../lib/format'
+import { horizonLabel } from '../lib/horizon'
 
 export function RunHistory({ jobs, selectedId, onSelect }: { jobs: Job[]; selectedId?: string; onSelect: (id: string) => void }) {
   const { act, strategies, instruments } = useWorkspace()
+  const selected = jobs.find(j => j.id === selectedId) || jobs[0]
+  const costs = useQuery({ queryKey: ['run-costs', selected?.id], queryFn: () => api<RunCost>(`/jobs/${selected!.id}/costs`), enabled: !!selected })
   if (!jobs.length) return null
   const job = jobs.find(j => j.id === selectedId) || jobs[0]
   function subject(run: Job) {
@@ -17,6 +21,9 @@ export function RunHistory({ jobs, selectedId, onSelect }: { jobs: Job[]; select
     <div className="run-history-heading"><Fingerprint size={17}/><div><h3>Saved runs</h3><p>Each new run keeps the exact inputs captured when you submitted it.</p></div></div>
     <label>Inspect a saved run<select value={job.id} onChange={e => onSelect(e.target.value)}>{jobs.map(j => <option key={j.id} value={j.id}>{subject(j)} · {date(j.created_at)} · {j.id.slice(0, 8)} · {j.status}</option>)}</select></label>
     <p className="run-subject">Selected result: {subject(job)}</p>
+    <p className="run-subject">Holding horizon: {horizonLabel(job.input.horizon)}</p>
+    {costs.data && <p className="run-subject">{costs.data.entry_count ? `Attributed costs: EUR ${costs.data.confirmed_eur} confirmed · EUR ${costs.data.estimated_eur} estimated · EUR ${costs.data.reserved_eur} reserved${costs.data.has_unknown ? ' · unresolved charge' : ''}` : 'No expenses attributed to this run.'} Shared workspace costs are listed in Settings.</p>}
+    {costs.error && <p className="run-subject">Run costs unavailable: {costs.error.message}</p>}
     <div className="run-history-detail"><Badge tone={job.input.snapshot_hash ? 'green' : 'amber'}>{job.input.snapshot_hash ? 'Frozen inputs' : 'Legacy run'}</Badge><span>{job.input.snapshot_hash ? `SHA-256 ${job.input.snapshot_hash.slice(0, 16)}…` : 'This older run predates input snapshots.'}</span>{job.input.snapshot_hash && <button className="button" onClick={() => void act(async () => { const snapshot = await api<InputSnapshot>(`/jobs/${job.id}/snapshot`); downloadJson(`aitrader-inputs-${job.id}.json`, snapshot) })}><Download size={14}/> Export inputs</button>}</div>
   </section>
 }
