@@ -1,6 +1,15 @@
 # Validation report — 2026-10-27
 
-## Current review: FB-2026-10-27-07-C86
+## Current review: FB-2026-10-27-08-C86
+
+Documentation only: the planned agent structure, selective curation, strategy lifecycle and research-impact bridge are now described in architecture, proposed contracts, decisions and shared Help. No runtime code, schema, user settings or stored research was changed by this work.
+
+- Existing guide API test: **1 passed**, 16 unrelated tests deselected. Evidence: `artifacts/fb08-guide-test.log`.
+- **19 Markdown files** passed local-link and paired-code-fence checks; `git diff --check` passed. Proposed contracts explicitly identify themselves as design requirements, not implemented endpoints.
+- Live guide returned HTTP 200 with FB08 content. Playwright verified **17 unique IDs, 20 valid internal links, five role rows and four impact states**, explicit planned-status wording, desktop/390-pixel mobile layout and print styling. No browser errors or external requests. Screenshots were reviewed; two long flag labels were shortened and the mobile view was checked again. Evidence: `artifacts/fb08-help-browser.json` and `fb08-help-*.png`.
+- The shared HTML remains the source for in-app Help and the standalone download. No frontend rebuild or backend restart was required. Full runtime tests were not repeated for documentation changes; FB06 remains the latest implementation test run below.
+
+## Previous review: FB-2026-10-27-07-C86
 
 Documentation and Help clarification only; no runtime code or data migrations. Reviewed current watchlist deletion semantics, single-family strategy execution, feed collection and domain controls against source code. Focus / On hold, adaptive research links and grey-rhino trigger rules remain specified future work.
 

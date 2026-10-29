@@ -1,5 +1,17 @@
 # Progress log
 
+## 2026-10-27 - FB-2026-10-27-08-C86 (agent and strategy design)
+
+- Documented the requested multi-agent structure: ordinary collection/coordinator, cheap Keep / Review / Discard curation, premium development analysis, separate portfolio relevance and critical review. Domain-scoped work shares versioned evidence and connects developments across time with uncertainty and expected delays. Examples remain illustrative rather than instructions to research a particular conflict.
+- Specified selective retention to prevent accumulating irrelevant material: reasons for curation, bounded Review/candidate queues, compact time-limited discard metadata and quality sampling. Accepted history remains preserved; absent ticker names do not exclude useful indirect signals and failed triage is not Discard.
+- Specified strategy setup, immutable saving/version changes, tests/comparisons and explicit selected-version activation/deactivation. Test status, watchlist focus and execution permission remain separate; deactivation preserves history and does not silently liquidate positions.
+- Defined the bridge from reviewed research to strategies: red negative/downward and green positive/upward flags for an instrument/horizon; assessed no material impact has no flag. Unknown, unassessed and stale coverage remains a visible status. Contradictory drivers, evidence, review/expiry and strategy-side interpretation are preserved. Advisory display precedes explicit versioned research rules; agents do not rewrite active strategies or submit orders.
+- Updated architecture with a pipeline diagram, proposed data contracts, product decisions, TODO, status, next steps and in-app/offline Help. Strengthened AGENTS.md to keep architecture/contracts and responsibilities current. These are documentation changes only; no runtime agents, strategy activation or flags were implemented, and no user configuration, database settings or paid services were changed.
+- Validation: focused guide API test passed; all 19 Markdown files passed local-link and paired-code-fence checks; `git diff --check` passed. Live Help returned HTTP 200; browser checks passed 17 unique IDs/20 anchors, five role rows/four impact states, explicit pending status, desktop/390-pixel mobile layouts and print styling, with zero page errors/external requests. Shortened two flag labels after mobile inspection and visually rechecked them. Evidence: `artifacts/fb08-guide-test.log`, `fb08-doc-links.json`, `fb08-help-browser.json` and `fb08-help-*.png`. Existing FB07 work was preserved; full runtime regression was not repeated for prose-only changes.
+
+Feedback: **FB-2026-10-27-08-C86**\
+Commit-Vorschlag: `docs: define multi-agent research and strategy impact workflows`
+
 ## 2026-10-27 - FB-2026-10-27-07-C86 (requirements and Help clarification)
 
 - Reviewed the user's FB06 questions against the implementation. Current watchlist stars add/delete only personal membership for fictional instruments; there is no On hold state or real ticker addition. Gathering polls configured catalog feeds, domain keywords do not search the web, and watchlist changes do not adapt research scope. The notebook runs one SMA-crossover family; no real grey-rhino detector is implemented.

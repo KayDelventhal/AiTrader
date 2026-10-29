@@ -6,6 +6,8 @@ Feedback **FB-2026-10-27-06-C86** adds editable research domains, public-feed co
 
 **FB-2026-10-27-07-C86** is a requirements/help clarification only. Persistent Focus / On hold membership, instrument-driven research domains, broader adaptive search, real risk-trigger detection and multiple strategy families are specified next steps, not implemented features. See `product-decisions.md`.
 
+**FB-2026-10-27-08-C86** documents the planned curation/development/portfolio/critic roles, selective retention, longitudinal chains, strategy lifecycle and red/green impact flags. It updates architecture, proposed contracts and Help; it does not implement or activate these workflows.
+
 Local preview address: http://127.0.0.1:8000. The full integration prompt is **not complete**. This is a functional local prototype with substantial remaining P1–P5 scope.
 
 | Area | Status | Evidence / limitations |
@@ -17,6 +19,8 @@ Local preview address: http://127.0.0.1:8000. The full integration prompt is **n
 | Charts, watchlists, indicators, daily replay, horizontal levels | Locally verified | Replay filters server-side; advanced drawings and ledger replay pending |
 | Strategy versions and vectorbt | Locally verified | One long-only SMA crossover family, actual engine, frozen bars/spec, saved run selection and exports. Hypothesis text/horizon are metadata; other families and walk-forward remain pending |
 | Watchlist focus lifecycle | Pending | Current star adds/removes only personal membership for fictional instruments. It preserves the instrument/research but has no On hold state or membership history; arbitrary real ticker addition is unavailable |
+| Strategy lifecycle and research-impact flags | Specified, not implemented | Current versions/backtests remain available. Selected-version activation/deactivation, structured red/green instrument/horizon assessments and opt-in strategy research rules are planned |
+| Selective multi-agent research | Specified, not implemented | Curation Keep/Review/Discard, development chains, portfolio relevance and critical review share versioned memory. Current collector retains bounded valid feed items without model-based quality selection |
 | Event viewer and fixture LangGraph | Locally verified | Evidence IDs, causal steps, counterarguments, available-time filter, persisted reports |
 | Local approval and Decimal ledger | Locally verified | Exact payload fingerprint, owner, expiry, concurrency, idempotency and kill switch |
 | Background work | Implemented, local-only | Separate bounded numerical and public-feed workers in one application process; frozen job/source inputs, conditional claims and persisted outcomes; no distributed deployment |

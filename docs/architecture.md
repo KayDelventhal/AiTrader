@@ -33,6 +33,64 @@ The source library retains stable source/publication identities and appends revi
 
 Source documents are the foundation for future longitudinal analysis. They are not automatically promoted to verified events or injected into the existing fixture research graph. Evidence-to-event synthesis, cross-publisher semantic grouping, corrections/retractions at the event level, premium analyst/critic workflows and fully isolated historical LLM evaluation remain future work.
 
+## Planned multi-agent research and strategy bridge (FB08)
+
+This is the target structure documented after FB07, not an implemented agent pipeline. The FB06 runtime retrieves public feeds and stores source revisions; it has no semantic Keep/Review/Discard gate, paid model execution, development-chain analysis, portfolio impact flags or strategy activation service. Its notebook saves and backtests versions of one SMA-crossover family. The proposed contracts are described in [data-contracts.md](data-contracts.md); product choices remain in [product-decisions.md](product-decisions.md).
+
+```mermaid
+flowchart TD
+    S[Scheduler and bounded source retrieval] --> C[Curation agent: cheaper role profile]
+    C -->|Keep| M[(Versioned evidence and research memory)]
+    C -->|Review| Q[Bounded review queue]
+    Q --> C
+    C -->|Discard| L[Compact decision log with retention limit]
+    M --> D[Development analyst: domain and cross-domain chains]
+    D --> P[Portfolio relevance agent]
+    P --> R[Critical reviewer]
+    D --> M
+    P --> M
+    R --> M
+    R -->|Needs more evidence| F[Bounded follow-up plan]
+    F --> S
+    R -->|Reviewed assessment with dissent retained| I[Instrument and horizon impact assessments]
+    I --> U[Research brief and red or green flags]
+    I --> E[Strategy evaluator: versioned opt-in rules]
+    V[(Saved strategy versions and activation history)] --> E
+    E --> T[Signals or local simulation proposals]
+    B[Coordinator: scope, limits and shared cost budget] -.-> S
+    B -.-> C
+    B -.-> D
+    B -.-> P
+    B -.-> R
+```
+
+### Responsibilities and shared memory
+
+| Component | Responsibility | Limits and retained output |
+| --- | --- | --- |
+| Retrieval and scheduler | Fetch permitted material on configured schedules; coalesce missed work and enforce provider/time/size limits | Ordinary code handles downloads. A scheduled check is not itself an AI interpretation or market trigger |
+| Curation agent | Judge credibility, novelty and direct/indirect relevance before choosing Keep, Review or Discard | Use a cheaper model profile where useful, retain reasons and policy/model versions, and never reject solely because no watched company is named. Review queues and discarded-item metadata have bounded retention; accepted evidence history is preserved |
+| Development analyst | Connect new material with prior observations and open hypotheses within and across domains | Store observed facts separately from inferred links and possible outcomes; attach evidence, assumptions, counterevidence, uncertainty and expected delays to each link. Revisit changed or due hypotheses instead of producing disconnected daily summaries |
+| Portfolio relevance agent | Evaluate the development chain against dated holdings, interests, exposures and horizons | Distinguish actual holdings, local-demo holdings and candidate instruments. Keep unknown exposure explicit; record possible risks/opportunities, materiality, timing and missing evidence. No present portfolio relevance need not erase a useful global hypothesis |
+| Critical reviewer | Challenge the chain and its portfolio interpretation before a reviewed assessment is exposed to strategies | Inspect source support, independence, alternative explanations, missing links and unsupported claims about market pricing. Preserve objections and incomplete reviews. Separate agents agreeing is not independent factual confirmation |
+| Coordinator | Schedule bounded work, select the configured role profiles and admit costs | Freeze inputs/settings, cap follow-up depth and revision rounds, reserve cost before paid attempts and retain uncertain usage. Budget limits pause work rather than silently downgrade premium roles or raise the allowance |
+
+Domain agents are domain-scoped work units and configurable profiles in the local application, not a permanently running process for every topic. Shared company/entity identities and evidence allow several domains to contribute to one chain without fetching or charging for the same source repeatedly. Cross-domain synthesis must retain the originating evidence and explain the link rather than relying exclusively on compressed domain summaries.
+
+Shared memory holds source revisions, curation decisions, dated hypotheses/connections, portfolio snapshots, critiques, impact assessments and eventual outcomes. Relevant history is retrieved for a task rather than copying the whole archive into every model call. Observation time and the later discovery of a relationship remain separate: a connection inferred today cannot appear in yesterday's historical strategy inputs. The same chain can strengthen, weaken, expire or remain unresolved; opportunities and delayed effects belong alongside threats.
+
+Curation is a planned addition, not permission to purge the current source library. Retention for the candidate inbox, Review queue and discard logs must be explicit. Missing or failed model output remains pending/failed triage, never an inferred Discard decision. Sample rejected material to check for missed early signals. Accepted evidence already used by a hypothesis or strategy retains its provenance and revisions when focus changes.
+
+### Strategy organisation and the impact interface
+
+The target strategy workflow is **set up → save an immutable version → test that version → compare/change via a new version → explicitly activate or deactivate a version**. Strategy identity, algorithm-family definition, saved version, test run and activation history are separate objects. Testing records evidence; a completed or profitable test is not automatic activation or proof of live performance. Initially, activation selects monitoring/signals or an explicitly configured local-simulation mode, never broker permission. Editing an active strategy creates a draft version and leaves the active version unchanged until an explicit switch. Deactivation stops new strategy-driven signal actions while preserving history; an in-flight calculation may save its result but must recheck activation before emitting actionable work. It does not silently liquidate positions or cancel existing orders.
+
+The first integration is advisory. Research produces a structured assessment for an instrument and effect horizon; the user sees evidence-backed flags. Formal strategy rules may later opt into research filters, such as declining a new long entry when a current adverse assessment meets the saved criteria. The LLM does not rewrite strategy rules or issue orders. The deterministic evaluator records the exact strategy version, eligible assessment revisions, prices, cutoff and configuration used for each decision. Multiple active strategies require explicit conflict and shared-capital rules rather than independently spending the same capacity.
+
+Flag colour describes the assessed effect on the underlying instrument for the stated horizon: **red = adverse/downward**, **green = favourable/upward**. A reviewed assessment of **no material impact** creates no impact flag. Unassessed, insufficient-evidence and stale/expired states also lack a current directional flag, but must be shown as separate coverage/status information; no flag cannot be interpreted as proof of neutrality. Colour must have a text label and explanation.
+
+Underlying direction and strategy applicability are different fields. An adverse price assessment can support a short strategy and oppose a long strategy, so the instrument's red flag must not silently change colour to mean “good for this strategy.” Record support/conflict/unknown applicability separately. Preserve competing supported red and green factors and their horizons with a Mixed status rather than inventing a net score; uncertain direction alone does not justify both flags. Criteria for materiality, freshness, expiry, reassessment and alert cooldowns must be versioned and tested before automated use; portfolio exposure, a plausible economic effect and a tradable price advantage are distinct conclusions.
+
 ## Boundaries
 
 Quant functions and the ledgers have no LLM dependency. The research graph cannot approve orders. API sessions enforce account ownership and CSRF; only the workspace owner can mutate shared settings, cost records and gathering configuration/source imports. The partner can inspect shared costs, domains and source history while private trading accounts and numerical/research runs remain scoped to their owner. The external order path does not exist in this release; LIVE and non-DEMO startup are rejected. Merely adding secrets or increasing the budget cannot cause paid calls.

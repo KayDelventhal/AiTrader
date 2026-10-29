@@ -27,6 +27,12 @@
 - [ ] Add full market/limit/stop order lifecycle and simulation-run ledger replay.
 
 ## P2–P5 — Full integration brief
+- [x] Document FB08 agent responsibilities, selective memory, strategy lifecycle and research-impact flags across decisions, architecture, proposed contracts and shared Help.
+- [ ] Add cheap Keep / Review / Discard curation with reasons, bounded queues/retention, indirect-signal protection and quality review; no implicit deletion of accepted history.
+- [ ] Add development-analysis, portfolio-relevance and critical-review roles with shared versioned memory, per-link evidence/uncertainty/delays and bounded follow-up under the cost ceiling.
+- [ ] Implement saved-version strategy activation/deactivation separately from tests, watchlist focus and execution permission; preserve results and recheck activation before actionable emissions.
+- [ ] Add evidence-backed red/green impact flags per instrument/horizon, no flag for assessed no impact, and explicit unknown/stale statuses; retain contradictory drivers and expiry history.
+- [ ] Connect assessments to Advisory strategy views first, then explicit versioned research filters and chronological comparisons with/without research.
 - [ ] Replace watchlist membership deletion with persistent Focus / On hold states, reactivation and append-only history; preserve held-position monitoring and all stored research.
 - [ ] Link real listings/entities to reusable company domains; propose indirect exposures, show source coverage gaps and preserve shared/global monitoring across personal focus changes.
 - [ ] Add controlled broader retrieval and dated relevance links without rewriting original evidence or activating paid services implicitly.
